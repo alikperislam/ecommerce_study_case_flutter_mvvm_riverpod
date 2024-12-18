@@ -99,7 +99,7 @@ class SplashButton extends StatelessWidget {
               style: GoogleFonts.manrope(
                 textStyle: TextStyle(
                   color: textColor,
-                  fontSize: 17.sp,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -110,3 +110,4 @@ class SplashButton extends StatelessWidget {
     );
   }
 }
+
