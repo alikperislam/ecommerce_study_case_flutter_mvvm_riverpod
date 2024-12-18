@@ -1,0 +1,16 @@
+{
+    "login": "Giriş Yap",
+    "skip": "Geç",
+    "welcomeBack": "Tekrar hoş geldiniz!",
+    "welcome": "Hoşgeldiniz",
+    "loginText": "Hesabınıza giriş yapınız",
+    "registerText": "Bir hesap oluşturunuz",
+    "mailTitle": "E-posta",
+    "mailHintText": "john@mail.com",
+    "passwordTitle": "Parola",
+    "passwordHintText": "••••••••",
+    "rememberMeText": "Beni hatırla",
+    "register": "Kayıt Ol",
+    "nameTitle": "Ad soyad",
+    "nameHintText": "John Doe"
+}

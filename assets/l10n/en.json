@@ -1,0 +1,16 @@
+{
+    "login": "Login",
+    "skip": "Skip",
+    "welcomeBack": "Welcome back!",
+    "welcome": "Welcome",
+    "loginText": "Login to your account",
+    "registerText": "Register an account",
+    "mailTitle": "E-mail",
+    "mailHintText": "john@mail.com",
+    "passwordTitle": "Password",
+    "passwordHintText": "••••••••",
+    "rememberMeText": "Remember me",
+    "register": "Register",
+    "nameTitle": "Name",
+    "nameHintText": "John Doe"
+}

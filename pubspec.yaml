@@ -1,0 +1,54 @@
+name: ecommerce_case_study
+description: "Case study application developed for Piton Technology"
+publish_to: 'none' 
+version: 1.0.0
+
+environment:
+  sdk: ^3.5.3
+
+dependencies:
+  flutter:
+    sdk: flutter
+  # ios icons
+  cupertino_icons: ^1.0.8
+  # dependency injection
+  get_it: ^8.0.3
+  # localization
+  easy_localization: ^3.0.7
+  # environments
+  flutter_dotenv: ^5.2.1
+  # router
+  go_router: ^14.6.2
+  # state management
+  flutter_riverpod: ^2.6.1
+  # responsive
+  flutter_screenutil: ^5.9.3
+  # cache
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  # image 
+  flutter_svg: ^2.0.16
+  # font
+  google_fonts: ^6.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  # generators
+  hive_generator: ^2.0.1
+  build_runner: ^2.4.13
+
+flutter:
+  uses-material-design: true
+
+# Environmental files
+  assets:
+    - assets/image/
+    - assets/l10n/
+    - assets/.env
+
+    
+    
+
+    
