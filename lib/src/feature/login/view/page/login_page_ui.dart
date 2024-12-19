@@ -1,24 +1,27 @@
 import 'package:ecommerce_case_study/src/core/extentions/string_extentions.dart';
+import 'package:ecommerce_case_study/src/core/locator/providers.dart';
 import 'package:ecommerce_case_study/src/core/router/app_route_named.dart';
 import 'package:ecommerce_case_study/src/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../core/constants/enums.dart';
 import '../../../../core/init/localization/locale_keys.g.dart';
 import '../../../../core/theme/system_theme.dart';
 import '../mixin/login_page_mixin.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginPageUi extends StatefulWidget {
+class LoginPageUi extends ConsumerStatefulWidget {
   const LoginPageUi({super.key});
 
   @override
-  State<LoginPageUi> createState() => _LoginPageUiState();
+  ConsumerState<LoginPageUi> createState() => _LoginPageUiState();
 }
 
-class _LoginPageUiState extends State<LoginPageUi>
+class _LoginPageUiState extends ConsumerState<LoginPageUi>
     with LoginPageMixin<LoginPageUi> {
   @override
   Widget build(BuildContext context) {
@@ -54,14 +57,18 @@ class _LoginPageUiState extends State<LoginPageUi>
                           TextFieldWidget(
                             title: LocaleKeys.mailTitle.locale,
                             hintText: LocaleKeys.mailHintText.locale,
-                            visible: false,
+                            isPasswordField: false,
+                            textController: emailController,
+                            type: TextfieldType.email,
                           ),
                           SizedBox(height: 24.h),
                           //? password textfield(column)
                           TextFieldWidget(
                             title: LocaleKeys.passwordTitle.locale,
                             hintText: LocaleKeys.passwordHintText.locale,
-                            visible: true,
+                            isPasswordField: true,
+                            textController: passwordController,
+                            type: TextfieldType.password,
                           ),
                           //? rememberMe button - register button(row)
                           SizedBox(height: 12.5.h),
@@ -145,19 +152,24 @@ class WellcomeTextWidget extends StatelessWidget {
   }
 }
 
-class TextFieldWidget extends StatelessWidget {
+class TextFieldWidget extends ConsumerWidget {
   final String title;
   final String hintText;
-  final bool visible;
+  final bool isPasswordField;
+  final TextEditingController textController;
+  final TextfieldType type;
   const TextFieldWidget({
     required this.title,
     required this.hintText,
-    required this.visible,
+    required this.isPasswordField,
+    required this.textController,
+    required this.type,
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final loginNotifier = ref.read(loginProvider.notifier);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -183,6 +195,15 @@ class TextFieldWidget extends StatelessWidget {
           ),
           child: TextField(
             scrollPadding: EdgeInsets.only(bottom: 150.h),
+            controller: textController,
+            keyboardType: type == TextfieldType.email
+                ? TextInputType.emailAddress
+                : TextInputType.multiline,
+            onChanged: (value) {
+              (type) == TextfieldType.email
+                  ? loginNotifier.setEmail(value)
+                  : loginNotifier.setPassword(value);
+            },
             //? hint text style
             decoration: InputDecoration(
               hintText: hintText,
@@ -196,7 +217,7 @@ class TextFieldWidget extends StatelessWidget {
                 ),
               ),
             ),
-            obscureText: visible,
+            obscureText: isPasswordField,
             textAlignVertical: TextAlignVertical.center,
             //? user text style
             style: GoogleFonts.manrope(
@@ -235,23 +256,28 @@ class OptionsRowWidget extends StatelessWidget {
   }
 }
 
-class CheckBoxWidget extends StatelessWidget {
+class CheckBoxWidget extends ConsumerWidget {
   const CheckBoxWidget({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final loginState = ref.watch(loginProvider);
+    final loginNotifier = ref.read(loginProvider.notifier);
     return InkWell(
       onTap: () {
-        //Todo: hatirla ozelligini aktif-deaktif et.
+        //? hatirla ozelligini aktif-deaktif et.
+        loginNotifier.setRememberMe(!loginState.rememberMe);
       },
       borderRadius: BorderRadius.circular(3.r),
       child: Ink(
         width: 20.h,
         height: 20.h,
         decoration: BoxDecoration(
-          color: AppColors.purpleColor, //! dinamik olacak.
+          color: loginState.rememberMe
+              ? AppColors.purpleColor
+              : AppColors.whiteColor,
           borderRadius: BorderRadius.circular(3.r),
           border: Border.all(
             width: 2.5.h,
@@ -330,17 +356,22 @@ class RegisterButtonWidget extends StatelessWidget {
   }
 }
 
-class LoginButtonWidget extends StatelessWidget {
+class LoginButtonWidget extends ConsumerWidget {
   const LoginButtonWidget({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final loginState = ref.watch(loginProvider);
+    final loginNotifier = ref.read(loginProvider.notifier);
     return InkWell(
-      onTap: () {
-        //Todo: giris yap islemlerini tetikle.
-      },
+      onTap: loginState.isSubmitting
+          ? null
+          : () {
+              //? start the login process.
+              loginNotifier.submit();
+            },
       borderRadius: BorderRadius.circular(4.r),
       child: Ink(
         height: 60.h,
@@ -349,16 +380,25 @@ class LoginButtonWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(4.r),
         ),
         child: Center(
-          child: Text(
-            LocaleKeys.login.locale,
-            style: GoogleFonts.manrope(
-              textStyle: TextStyle(
-                color: AppColors.whiteColor,
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
+          child: loginState.isSubmitting
+              ? SizedBox(
+                  height: 25.h,
+                  width: 25.h,
+                  child: CircularProgressIndicator(
+                    color: AppColors.whiteColor,
+                    strokeWidth: 2.w,
+                  ),
+                )
+              : Text(
+                  LocaleKeys.login.locale,
+                  style: GoogleFonts.manrope(
+                    textStyle: TextStyle(
+                      color: AppColors.whiteColor,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
         ),
       ),
     );
