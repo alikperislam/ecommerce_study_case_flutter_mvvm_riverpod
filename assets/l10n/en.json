@@ -12,5 +12,9 @@
     "rememberMeText": "Remember me",
     "register": "Register",
     "nameTitle": "Name",
-    "nameHintText": "John Doe"
+    "nameHintText": "John Doe",
+    "errorEmpty": "Please fill in the blank spaces.",
+    "errorMailFormat": "You entered an incorrect email format.",
+    "errorPasswordFormat": "The password must contain 6-20 alphanumeric characters.",
+    "errorNameFormat": "Please fill in your first and last name."
 }

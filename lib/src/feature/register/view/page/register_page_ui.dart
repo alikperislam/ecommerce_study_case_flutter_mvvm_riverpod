@@ -330,7 +330,7 @@ class LoginButtonWidget extends ConsumerWidget {
           ? null
           : () {
               //? start the registration process.
-              registerNotifier.submit();
+              registerNotifier.submit(context);
             },
       borderRadius: BorderRadius.circular(4.r),
       child: Ink(
@@ -364,8 +364,3 @@ class LoginButtonWidget extends ConsumerWidget {
     );
   }
 }
-
-git pull origin main
-git add .
-git commit -m "Riverpod has been added to the authentication process."
-git push

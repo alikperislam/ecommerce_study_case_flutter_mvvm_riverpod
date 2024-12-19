@@ -15,5 +15,9 @@ abstract class  LocaleKeys {
   static const register = 'register';
   static const nameTitle = 'nameTitle';
   static const nameHintText = 'nameHintText';
+  static const errorEmpty = 'errorEmpty';
+  static const errorMailFormat = 'errorMailFormat';
+  static const errorPasswordFormat = 'errorPasswordFormat';
+  static const errorNameFormat = 'errorNameFormat';
 
 }

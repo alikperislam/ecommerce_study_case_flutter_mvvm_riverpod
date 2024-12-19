@@ -8,6 +8,7 @@ class AppColors {
   static const Color purpleColor = Color(0xFF6251DD);
   static const Color greyColor = Color(0xFFF4F4FF);
   static const Color blackColor = Color(0xFF090937);
+  static const Color redColor = Colors.redAccent;
   //? Additional shades of black
   static const Color black60 = Color(0x99090937); //? 60% black
   static const Color black40 = Color(0x66090937); //? 40% black
