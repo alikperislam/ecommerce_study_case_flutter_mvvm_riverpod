@@ -19,5 +19,6 @@ abstract class  LocaleKeys {
   static const errorMailFormat = 'errorMailFormat';
   static const errorPasswordFormat = 'errorPasswordFormat';
   static const errorNameFormat = 'errorNameFormat';
+  static const errorInternet = 'errorInternet';
 
 }

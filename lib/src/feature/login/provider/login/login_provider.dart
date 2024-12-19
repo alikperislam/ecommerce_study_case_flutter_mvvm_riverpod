@@ -4,12 +4,17 @@ import 'package:ecommerce_case_study/src/core/widgets/custom_snackbar.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import '../../../../core/constants/app_constants.dart';
 part 'login_state.dart';
 
 class LoginNotifier extends Notifier<LoginState> {
   final CustomSnackbar snackbar;
-  LoginNotifier(this.snackbar);
+  final InternetConnectionChecker connection;
+  LoginNotifier({
+    required this.snackbar,
+    required this.connection,
+  });
   @override
   LoginState build() {
     return const LoginState();
@@ -27,7 +32,7 @@ class LoginNotifier extends Notifier<LoginState> {
     state = state.copyWith(rememberMe: value);
   }
 
-  void submit(BuildContext context) {
+  void submit(BuildContext context) async {
     //? empty controller
     if (state.email.isEmpty || state.password.isEmpty) {
       snackbar.showCustomSnackbar(
@@ -52,13 +57,23 @@ class LoginNotifier extends Notifier<LoginState> {
       );
       return;
     }
-    //Todo: rememberMe kontrolunu yap.
-    //? Simulate a submit action
+    //? start progress
     state = state.copyWith(isSubmitting: true);
-    //? Simulate API call delay
+    if (!(await connection.hasConnection)) {
+      if (context.mounted) {
+        snackbar.showCustomSnackbar(
+          context: context,
+          message: LocaleKeys.errorInternet.locale,
+        );
+      }
+      //? internet fail - stop progress.
+      state = state.copyWith(isSubmitting: false);
+      return;
+    }
+    //Todo: rememberMe kontrolunu yap.
+    //Todo: api call
     Future.delayed(const Duration(seconds: 2), () {
       state = state.copyWith(isSubmitting: false);
-      //? Handle success or failure here
     });
   }
 

@@ -30,7 +30,10 @@ dependencies:
   flutter_svg: ^2.0.16
   # font
   google_fonts: ^6.2.1
+  # utility
   email_validator: ^3.0.0
+  # network
+  internet_connection_checker: ^3.0.1
 
 dev_dependencies:
   flutter_test:
@@ -51,6 +54,6 @@ flutter:
 
 
     
-    
+
 
     

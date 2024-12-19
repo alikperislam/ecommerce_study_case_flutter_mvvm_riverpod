@@ -16,5 +16,6 @@
     "errorEmpty": "Lütfen boş bırakılan yerleri doldurunuz.",
     "errorMailFormat": "Hatalı bir e-posta formatı girdiniz.",
     "errorPasswordFormat": "Parola 6-20 arası alfanümerik karakterler içermelidir.",
-    "errorNameFormat": "Lüften ad ve soyadınızı doldurunuz."
+    "errorNameFormat": "Lüften ad ve soyadınızı doldurunuz.",
+    "errorInternet": "İnternet bağlantınızı kontrol ediniz."
 }
