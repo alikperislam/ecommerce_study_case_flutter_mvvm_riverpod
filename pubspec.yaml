@@ -33,7 +33,9 @@ dependencies:
   # utility
   email_validator: ^3.0.0
   # network
+  dio: ^5.7.0
   internet_connection_checker: ^3.0.1
+  
 
 dev_dependencies:
   flutter_test:
