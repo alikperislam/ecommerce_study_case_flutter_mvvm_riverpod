@@ -110,4 +110,3 @@ class SplashButton extends StatelessWidget {
     );
   }
 }
-

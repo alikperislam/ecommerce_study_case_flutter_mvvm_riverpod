@@ -8,18 +8,18 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/init/localization/locale_keys.g.dart';
 import '../../../../core/theme/system_theme.dart';
-import '../mixin/login_page_mixin.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../mixin/register_page_mixin.dart';
 
-class LoginPageUi extends StatefulWidget {
-  const LoginPageUi({super.key});
+class RegisterPageUi extends StatefulWidget {
+  const RegisterPageUi({super.key});
 
   @override
-  State<LoginPageUi> createState() => _LoginPageUiState();
+  State<RegisterPageUi> createState() => _RegisterPageUiState();
 }
 
-class _LoginPageUiState extends State<LoginPageUi>
-    with LoginPageMixin<LoginPageUi> {
+class _RegisterPageUiState extends State<RegisterPageUi>
+    with RegisterPageMixin<RegisterPageUi> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,6 +50,13 @@ class _LoginPageUiState extends State<LoginPageUi>
                           LogoWidget(logo: logo),
                           //? wellcome text(textSpan)
                           const WellcomeTextWidget(),
+                          //? name filed
+                          TextFieldWidget(
+                            title: LocaleKeys.nameTitle.locale,
+                            hintText: LocaleKeys.nameHintText.locale,
+                            visible: false,
+                          ),
+                          SizedBox(height: 24.h),
                           //? e-mail textfield(column)
                           TextFieldWidget(
                             title: LocaleKeys.mailTitle.locale,
@@ -65,7 +72,7 @@ class _LoginPageUiState extends State<LoginPageUi>
                           ),
                           //? rememberMe button - register button(row)
                           SizedBox(height: 12.5.h),
-                          const OptionsRowWidget(),
+                          const RegisterButtonWidget(),
                           SizedBox(height: 12.5.h),
                           //? login button
                           const Spacer(),
@@ -118,7 +125,7 @@ class WellcomeTextWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              LocaleKeys.welcomeBack.locale,
+              LocaleKeys.welcome.locale,
               style: GoogleFonts.manrope(
                 textStyle: TextStyle(
                   color: AppColors.black60,
@@ -129,7 +136,7 @@ class WellcomeTextWidget extends StatelessWidget {
             ),
             SizedBox(height: 10.sp),
             Text(
-              LocaleKeys.loginText.locale,
+              LocaleKeys.registerText.locale,
               style: GoogleFonts.manrope(
                 textStyle: TextStyle(
                   color: AppColors.blackColor,
@@ -213,63 +220,6 @@ class TextFieldWidget extends StatelessWidget {
   }
 }
 
-class OptionsRowWidget extends StatelessWidget {
-  const OptionsRowWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return const Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        //? remember-me checkbox
-        CheckBoxWidget(),
-        //? remember-me text
-        RememberTextWidget(),
-        Spacer(),
-        //? go to register button
-        RegisterButtonWidget(),
-      ],
-    );
-  }
-}
-
-class CheckBoxWidget extends StatelessWidget {
-  const CheckBoxWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        //Todo: hatirla ozelligini aktif-deaktif et.
-      },
-      borderRadius: BorderRadius.circular(3.r),
-      child: Ink(
-        width: 20.h,
-        height: 20.h,
-        decoration: BoxDecoration(
-          color: AppColors.purpleColor, //! dinamik olacak.
-          borderRadius: BorderRadius.circular(3.r),
-          border: Border.all(
-            width: 2.5.h,
-            color: AppColors.purpleColor,
-          ),
-        ),
-        child: Center(
-          child: Icon(
-            Icons.check,
-            color: AppColors.whiteColor,
-            size: 15.h,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
 class RememberTextWidget extends StatelessWidget {
   const RememberTextWidget({
     super.key,
@@ -305,27 +255,32 @@ class RegisterButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        //? go to register page.
-        context.push(AppRouteNamed.registerPage.path);
-      },
-      borderRadius: BorderRadius.circular(3.r),
-      child: Ink(
-        height: 20.h,
-        child: Center(
-          child: Text(
-            LocaleKeys.register.locale,
-            style: GoogleFonts.manrope(
-              textStyle: TextStyle(
-                color: AppColors.purpleColor,
-                fontSize: 12.sp,
-                fontWeight: FontWeight.bold,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        InkWell(
+          onTap: () {
+            //? go to login page.
+            context.push(AppRouteNamed.loginPage.path);
+          },
+          borderRadius: BorderRadius.circular(3.r),
+          child: Ink(
+            height: 20.h,
+            child: Center(
+              child: Text(
+                LocaleKeys.login.locale,
+                style: GoogleFonts.manrope(
+                  textStyle: TextStyle(
+                    color: AppColors.purpleColor,
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ),
           ),
         ),
-      ),
+      ],
     );
   }
 }
@@ -339,7 +294,7 @@ class LoginButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        //Todo: giris yap islemlerini tetikle.
+        //Todo: register ol islemlerini tetikle.
       },
       borderRadius: BorderRadius.circular(4.r),
       child: Ink(
@@ -350,7 +305,7 @@ class LoginButtonWidget extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            LocaleKeys.login.locale,
+            LocaleKeys.register.locale,
             style: GoogleFonts.manrope(
               textStyle: TextStyle(
                 color: AppColors.whiteColor,

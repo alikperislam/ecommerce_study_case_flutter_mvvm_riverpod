@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import '../../feature/login/view/page/login_page_ui.dart';
+import '../../feature/register/view/page/register_page_ui.dart';
 import 'app_route_named.dart';
 import '../../feature/splash/view/page/splash_page_ui.dart';
 
@@ -40,6 +41,16 @@ class AppRoutes {
         },
         onExit: (context, state) {
           return false;
+        },
+      ),
+      //? register page
+      GoRoute(
+        path: AppRouteNamed.registerPage.path,
+        pageBuilder: (context, state) {
+          return buildCustomTransitionPage(
+            state: state,
+            child: const RegisterPageUi(),
+          );
         },
       ),
     ],
