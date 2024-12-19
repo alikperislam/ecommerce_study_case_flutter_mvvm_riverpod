@@ -6,14 +6,19 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/init/localization/locale_keys.g.dart';
 import '../../../../core/widgets/custom_snackbar.dart';
+import '../../model/register_request_model.dart';
+import '../../service/i_register_service.dart';
 part 'register_state.dart';
 
 class RegisterNotifier extends Notifier<RegisterState> {
+  //? Dependencys
   final CustomSnackbar snackbar;
   final InternetConnectionChecker connection;
+  final IRegisterService registerService;
   RegisterNotifier({
     required this.snackbar,
     required this.connection,
+    required this.registerService,
   });
 
   @override
@@ -33,7 +38,12 @@ class RegisterNotifier extends Notifier<RegisterState> {
     state = state.copyWith(password: password);
   }
 
-  void submit(BuildContext context) async {
+  //? reset state
+  void reset() {
+    state = const RegisterState();
+  }
+
+  void registerController(BuildContext context) async {
     //? empty controller
     if (state.name.isEmpty || state.email.isEmpty || state.password.isEmpty) {
       snackbar.showCustomSnackbar(
@@ -43,7 +53,7 @@ class RegisterNotifier extends Notifier<RegisterState> {
       return;
     }
     //? name controller
-    if (!(nameRegex.hasMatch(state.name.trim()))) {
+    if (!(kNameRegex.hasMatch(state.name.trim()))) {
       snackbar.showCustomSnackbar(
         context: context,
         message: LocaleKeys.errorNameFormat.locale,
@@ -59,7 +69,7 @@ class RegisterNotifier extends Notifier<RegisterState> {
       return;
     }
     //? password controller
-    if (!passwordRegex.hasMatch(state.password)) {
+    if (!kPasswordRegex.hasMatch(state.password)) {
       snackbar.showCustomSnackbar(
         context: context,
         message: LocaleKeys.errorPasswordFormat.locale,
@@ -80,14 +90,38 @@ class RegisterNotifier extends Notifier<RegisterState> {
       state = state.copyWith(isSubmitting: false);
       return;
     }
-    //Todo: api call
-    Future.delayed(const Duration(seconds: 2), () {
-      state = state.copyWith(isSubmitting: false);
-    });
+    //? api request function
+    if (context.mounted) await postRegister(context);
   }
 
-  //? reset state
-  void reset() {
-    state = const RegisterState();
+  //? api request
+  Future<void> postRegister(BuildContext context) async {
+    await registerService
+        .postRegisterUser(
+      request: RegisterRequestModel(
+        name: state.name,
+        email: state.email,
+        password: state.password,
+      ),
+    )
+        .then(
+      (value) {
+        if (value != null && value.actionRegister != null) {
+          //? register successfull
+          debugPrint(value.actionRegister?.token);
+          //Todo: go to home page.
+        } else {
+          //? register failed
+          if (context.mounted) {
+            snackbar.showCustomSnackbar(
+              context: context,
+              message: LocaleKeys.errorRegister.locale,
+            );
+          }
+        }
+        //? stop progress.
+        state = state.copyWith(isSubmitting: false);
+      },
+    );
   }
 }

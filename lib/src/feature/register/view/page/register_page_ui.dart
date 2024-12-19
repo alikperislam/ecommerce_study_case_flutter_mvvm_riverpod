@@ -330,7 +330,7 @@ class LoginButtonWidget extends ConsumerWidget {
           ? null
           : () {
               //? start the registration process.
-              registerNotifier.submit(context);
+              registerNotifier.registerController(context);
             },
       borderRadius: BorderRadius.circular(4.r),
       child: Ink(

@@ -20,5 +20,7 @@ abstract class  LocaleKeys {
   static const errorPasswordFormat = 'errorPasswordFormat';
   static const errorNameFormat = 'errorNameFormat';
   static const errorInternet = 'errorInternet';
+  static const errorRegister = 'errorRegister';
+  static const errorLogin = 'errorLogin';
 
 }

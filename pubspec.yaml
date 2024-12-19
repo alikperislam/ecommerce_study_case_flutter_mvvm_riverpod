@@ -44,6 +44,8 @@ dev_dependencies:
   # generators
   hive_generator: ^2.0.1
   build_runner: ^2.4.13
+  # testing
+  mockito: ^5.4.4
 
 flutter:
   uses-material-design: true

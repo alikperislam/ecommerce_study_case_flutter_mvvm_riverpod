@@ -17,5 +17,7 @@
     "errorMailFormat": "You entered an incorrect email format.",
     "errorPasswordFormat": "The password must contain 6-20 alphanumeric characters.",
     "errorNameFormat": "Please fill in your first and last name.",
-    "errorInternet": "Check your internet connection."
+    "errorInternet": "Check your internet connection.",
+    "errorRegister": "Registration failed, please try again.",
+    "errorLogin": "Login failed, please try again."
 }

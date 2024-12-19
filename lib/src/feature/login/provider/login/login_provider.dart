@@ -32,7 +32,12 @@ class LoginNotifier extends Notifier<LoginState> {
     state = state.copyWith(rememberMe: value);
   }
 
-  void submit(BuildContext context) async {
+  //? reset state
+  void reset() {
+    state = const LoginState();
+  }
+
+  void loginController(BuildContext context) async {
     //? empty controller
     if (state.email.isEmpty || state.password.isEmpty) {
       snackbar.showCustomSnackbar(
@@ -50,7 +55,7 @@ class LoginNotifier extends Notifier<LoginState> {
       return;
     }
     //? password controller
-    if (!passwordRegex.hasMatch(state.password)) {
+    if (!kPasswordRegex.hasMatch(state.password)) {
       snackbar.showCustomSnackbar(
         context: context,
         message: LocaleKeys.errorPasswordFormat.locale,
@@ -75,10 +80,5 @@ class LoginNotifier extends Notifier<LoginState> {
     Future.delayed(const Duration(seconds: 2), () {
       state = state.copyWith(isSubmitting: false);
     });
-  }
-
-  //? reset state
-  void reset() {
-    state = const LoginState();
   }
 }

@@ -370,7 +370,7 @@ class LoginButtonWidget extends ConsumerWidget {
           ? null
           : () {
               //? start the login process.
-              loginNotifier.submit(context);
+              loginNotifier.loginController(context);
             },
       borderRadius: BorderRadius.circular(4.r),
       child: Ink(

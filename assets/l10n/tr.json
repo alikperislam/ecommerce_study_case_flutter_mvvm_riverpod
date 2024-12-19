@@ -17,5 +17,7 @@
     "errorMailFormat": "Hatalı bir e-posta formatı girdiniz.",
     "errorPasswordFormat": "Parola 6-20 arası alfanümerik karakterler içermelidir.",
     "errorNameFormat": "Lüften ad ve soyadınızı doldurunuz.",
-    "errorInternet": "İnternet bağlantınızı kontrol ediniz."
+    "errorInternet": "İnternet bağlantınızı kontrol ediniz.",
+    "errorRegister": "Kayıt olma işlemi başarısız oldu, lütfen tekrar deneyiniz.",
+    "errorLogin": "Giriş yapma işlemi başarısız oldu, lütfen tekrar deneyiniz."
 }
