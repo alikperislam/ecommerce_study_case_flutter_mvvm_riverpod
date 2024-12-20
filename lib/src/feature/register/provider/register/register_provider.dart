@@ -1,9 +1,13 @@
 import 'package:ecommerce_case_study/src/core/extentions/string_extentions.dart';
+import 'package:ecommerce_case_study/src/core/init/cache/hive_model.dart';
+import 'package:ecommerce_case_study/src/core/router/app_route_named.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import '../../../../core/constants/app_constants.dart';
+import '../../../../core/init/cache/hive_operations.dart';
 import '../../../../core/init/localization/locale_keys.g.dart';
 import '../../../../core/widgets/custom_snackbar.dart';
 import '../../model/register_request_model.dart';
@@ -15,10 +19,12 @@ class RegisterNotifier extends Notifier<RegisterState> {
   final CustomSnackbar snackbar;
   final InternetConnectionChecker connection;
   final IRegisterService registerService;
+  final CacheOperations cache;
   RegisterNotifier({
     required this.snackbar,
     required this.connection,
     required this.registerService,
+    required this.cache,
   });
 
   @override
@@ -106,13 +112,27 @@ class RegisterNotifier extends Notifier<RegisterState> {
     )
         .then(
       (value) {
+        //? register successfull
         if (value != null && value.actionRegister != null) {
-          //? register successfull
-          debugPrint(value.actionRegister?.token);
-          //Todo: go to home page.
-          //Todo: kullanici kaydini olsutur ve ardindan go to yap.
-        } else {
-          //? register failed
+          //? save user account in cache.
+          cache
+              .userRegister(
+            userDb: UserHiveDb(
+              currentUser: false,
+              user: UserDb(
+                token: value.actionRegister!.token!,
+              ),
+            ),
+          )
+              .then(
+            (_) {
+              //? go to home page.
+              if (context.mounted) context.push(AppRouteNamed.homePage.path);
+            },
+          );
+        }
+        //? register failed
+        else {
           if (context.mounted) {
             snackbar.showCustomSnackbar(
               context: context,

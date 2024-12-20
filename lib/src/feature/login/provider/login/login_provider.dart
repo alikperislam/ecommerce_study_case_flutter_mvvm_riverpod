@@ -1,4 +1,5 @@
 import 'package:ecommerce_case_study/src/core/extentions/string_extentions.dart';
+import 'package:ecommerce_case_study/src/core/init/cache/hive_operations.dart';
 import 'package:ecommerce_case_study/src/core/init/localization/locale_keys.g.dart';
 import 'package:ecommerce_case_study/src/core/widgets/custom_snackbar.dart';
 import 'package:email_validator/email_validator.dart';
@@ -11,9 +12,11 @@ part 'login_state.dart';
 class LoginNotifier extends Notifier<LoginState> {
   final CustomSnackbar snackbar;
   final InternetConnectionChecker connection;
+  final CacheOperations cache;
   LoginNotifier({
     required this.snackbar,
     required this.connection,
+    required this.cache,
   });
   @override
   LoginState build() {

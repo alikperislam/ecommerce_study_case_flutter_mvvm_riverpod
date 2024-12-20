@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
+import '../../feature/home/view/page/home_page_ui.dart';
 import '../../feature/login/view/page/login_page_ui.dart';
 import '../../feature/register/view/page/register_page_ui.dart';
 import 'app_route_named.dart';
@@ -51,6 +52,19 @@ class AppRoutes {
             state: state,
             child: const RegisterPageUi(),
           );
+        },
+      ),
+      //? home page
+      GoRoute(
+        path: AppRouteNamed.homePage.path,
+        pageBuilder: (context, state) {
+          return buildCustomTransitionPage(
+            state: state,
+            child: const HomePageUi(),
+          );
+        },
+        onExit: (context, state) {
+          return false;
         },
       ),
     ],

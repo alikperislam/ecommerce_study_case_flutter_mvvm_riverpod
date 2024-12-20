@@ -21,8 +21,8 @@ class ProductInit {
     final dir = await path_provider.getApplicationDocumentsDirectory();
     Hive.init(dir.path);
     UserHiveAdapters().hiveAdapters();
-    dbBox = await Hive.openBox('UserStorage');
+    kDbBox = await Hive.openBox(kDbStorage);
     //? environments
-    await dotenv.load(fileName: 'assets/.env');
+    await dotenv.load(fileName: kEnvironmentPath);
   }
 }
