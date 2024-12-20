@@ -110,6 +110,7 @@ class RegisterNotifier extends Notifier<RegisterState> {
           //? register successfull
           debugPrint(value.actionRegister?.token);
           //Todo: go to home page.
+          //Todo: kullanici kaydini olsutur ve ardindan go to yap.
         } else {
           //? register failed
           if (context.mounted) {
