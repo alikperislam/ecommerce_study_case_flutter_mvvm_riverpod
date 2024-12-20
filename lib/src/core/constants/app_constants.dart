@@ -13,3 +13,4 @@ final kPasswordRegex = RegExp(r'^[\p{L}0-9]{6,20}$', unicode: true);
 //? endpoints
 final kRegisterUrl =
     '${dotenv.env['DOMAIN']}${dotenv.env['REGISTER_ENDPOINT']}';
+final kLoginUrl = '${dotenv.env['DOMAIN']}${dotenv.env['LOGIN_ENDPOINT']}';

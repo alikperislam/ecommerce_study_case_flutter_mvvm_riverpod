@@ -18,8 +18,8 @@ class SplashNotifier extends StateNotifier<int> {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (state <= 1) {
         //? redirect to user control.
-        _userAccountCheckAndRedirect(context);
         timer.cancel();
+        _userAccountCheckAndRedirect(context);
       } else {
         state = state - 1;
       }
@@ -40,14 +40,12 @@ class SplashNotifier extends StateNotifier<int> {
 
   //? Pressing the Skip button redirects to the necessary controls.
   void skip(BuildContext context) {
-    _userAccountCheckAndRedirect(context);
     _timer?.cancel();
+    _userAccountCheckAndRedirect(context);
   }
 
   //? cancel or stop timer.
-  @override
-  void dispose() {
+  void stopTimer() {
     _timer?.cancel();
-    super.dispose();
   }
 }

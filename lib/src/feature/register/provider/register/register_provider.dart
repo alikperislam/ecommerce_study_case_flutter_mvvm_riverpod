@@ -15,7 +15,7 @@ import '../../service/i_register_service.dart';
 part 'register_state.dart';
 
 class RegisterNotifier extends Notifier<RegisterState> {
-  //? Dependencys
+  //? Dependencies
   final CustomSnackbar snackbar;
   final InternetConnectionChecker connection;
   final IRegisterService registerService;

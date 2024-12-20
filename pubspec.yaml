@@ -37,6 +37,8 @@ dependencies:
   # network
   dio: ^5.7.0
   internet_connection_checker: ^3.0.1
+  # json web token 
+  jwt_decoder: ^2.0.1
   
 dev_dependencies:
   flutter_test:

@@ -92,6 +92,7 @@ class SplashButton extends ConsumerWidget {
         onTap: () {
           if (type == SplashButtonType.loginButton) {
             //? go to login page.
+            splashNotifier.stopTimer();
             context.push(AppRouteNamed.loginPage.path);
           } else {
             //? skip button controller. Home or Login page.
