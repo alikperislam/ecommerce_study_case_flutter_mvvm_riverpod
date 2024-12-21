@@ -22,5 +22,6 @@ abstract class  LocaleKeys {
   static const errorInternet = 'errorInternet';
   static const errorRegister = 'errorRegister';
   static const errorLogin = 'errorLogin';
+  static const catalogTitle = 'catalogTitle';
 
 }
