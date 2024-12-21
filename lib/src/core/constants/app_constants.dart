@@ -14,3 +14,8 @@ final kPasswordRegex = RegExp(r'^[\p{L}0-9]{6,20}$', unicode: true);
 final kRegisterUrl =
     '${dotenv.env['DOMAIN']}${dotenv.env['REGISTER_ENDPOINT']}';
 final kLoginUrl = '${dotenv.env['DOMAIN']}${dotenv.env['LOGIN_ENDPOINT']}';
+final kCategoriesUrl =
+    '${dotenv.env['DOMAIN']}${dotenv.env['CATEGORIES_ENDPOINT']}';
+final kProductsUrl =
+    '${dotenv.env['DOMAIN']}${dotenv.env['PRODUCTS_ENDPOINT']}';
+final kImageUrl = '${dotenv.env['DOMAIN']}${dotenv.env['IMAGE_ENDPOINT']}';

@@ -1,5 +1,7 @@
 import 'package:ecommerce_case_study/src/core/init/cache/hive_operations.dart';
 import 'package:ecommerce_case_study/src/core/widgets/custom_snackbar.dart';
+import 'package:ecommerce_case_study/src/feature/home/provider/home/home_provider.dart';
+import 'package:ecommerce_case_study/src/feature/home/service/i_catalog_service.dart';
 import 'package:ecommerce_case_study/src/feature/register/provider/register/register_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -32,6 +34,16 @@ final loginProvider = NotifierProvider<LoginNotifier, LoginState>(
     snackbar: GetitLocator.getIt<CustomSnackbar>(),
     connection: GetitLocator.getIt<InternetConnectionChecker>(),
     loginService: GetitLocator.getIt<ILoginService>(),
+    cache: GetitLocator.getIt<CacheOperations>(),
+  ),
+);
+
+//? home
+final homeProvider = NotifierProvider<HomeNotifier, HomeState>(
+  () => HomeNotifier(
+    snackbar: GetitLocator.getIt<CustomSnackbar>(),
+    connection: GetitLocator.getIt<InternetConnectionChecker>(),
+    catalogService: GetitLocator.getIt<ICatalogService>(),
     cache: GetitLocator.getIt<CacheOperations>(),
   ),
 );
