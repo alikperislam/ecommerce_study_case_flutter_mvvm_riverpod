@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../../core/constants/enums.dart';
 import '../../../../core/init/localization/locale_keys.g.dart';
@@ -25,52 +26,66 @@ class _BookCategoriesPageUiState extends ConsumerState<BookCategoriesPageUi>
   @override
   Widget build(BuildContext context) {
     final homeState = ref.watch(homeProvider);
+    final catgoriesNotifier = ref.read(bookCategoriesProvider.notifier);
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemTheme.systemPanelColors(
         screen: SystemThemeScreenEnum.general,
       ),
       child: SafeArea(
-        child: Scaffold(
-          backgroundColor: AppColors.whiteColor,
-          appBar: CustomAppbar(
-            title:
-                CatalogButtons.values[homeState.currentCategoryIndex! + 1].name,
-            showBackButton: true,
-          ),
-          body: homeState.isSubmitting ||
-                  homeState.categories.isEmpty ||
-                  homeState.currentCategory == null
-              ? Center(
-                  child: SizedBox(
-                    height: 35.h,
-                    width: 35.h,
-                    child: CircularProgressIndicator(
-                      color: AppColors.purpleColor,
-                      strokeWidth: 3.w,
+        child: PopScope(
+          onPopInvokedWithResult: (bool didPop, Object? result) {
+            if (didPop) {
+              catgoriesNotifier.clearSearch();
+              return;
+            }
+          },
+          child: Scaffold(
+            backgroundColor: AppColors.whiteColor,
+            appBar: CustomAppbar(
+              title: CatalogButtons
+                  .values[homeState.currentCategoryIndex! + 1].name,
+              showBackButton: true,
+              onBackPressed: () {
+                //? search cleaning
+                catgoriesNotifier.clearSearch();
+                context.pop();
+              },
+            ),
+            body: homeState.isSubmitting ||
+                    homeState.categories.isEmpty ||
+                    homeState.currentCategory == null
+                ? Center(
+                    child: SizedBox(
+                      height: 35.h,
+                      width: 35.h,
+                      child: CircularProgressIndicator(
+                        color: AppColors.purpleColor,
+                        strokeWidth: 3.w,
+                      ),
+                    ),
+                  )
+                : Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 20.w,
+                    ),
+                    child: NestedScrollView(
+                      headerSliverBuilder: (context, innerBoxIsScrolled) => [
+                        SliverToBoxAdapter(
+                          child: Column(
+                            children: [
+                              //? Search field
+                              TextFieldWidget(
+                                hintText: LocaleKeys.searchHintText.locale,
+                                textController: searchController,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                      body: const ProductGridListWidget(),
                     ),
                   ),
-                )
-              : Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 20.w,
-                  ),
-                  child: NestedScrollView(
-                    headerSliverBuilder: (context, innerBoxIsScrolled) => [
-                      SliverToBoxAdapter(
-                        child: Column(
-                          children: [
-                            //? Search field
-                            TextFieldWidget(
-                              hintText: LocaleKeys.searchHintText.locale,
-                              textController: searchController,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                    body: const ProductGridListWidget(),
-                  ),
-                ),
+          ),
         ),
       ),
     );
@@ -88,7 +103,8 @@ class TextFieldWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    //final homeNotifier = ref.read(homeProvider.notifier);
+    final homeState = ref.watch(homeProvider);
+    final categoriesNotifier = ref.read(bookCategoriesProvider.notifier);
     return Padding(
       padding: EdgeInsets.only(bottom: 40.h, top: 30.h),
       child: Container(
@@ -101,6 +117,13 @@ class TextFieldWidget extends ConsumerWidget {
         child: TextField(
           scrollPadding: EdgeInsets.only(bottom: 150.h),
           controller: textController,
+          onChanged: (value) {
+            //? search proccess
+            categoriesNotifier.searchController(
+              value,
+              homeState.currentCategory!,
+            );
+          },
           //? hint text style
           decoration: InputDecoration(
             hintText: hintText,
@@ -151,11 +174,14 @@ class ProductGridListWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final homeState = ref.watch(homeProvider);
+    final categoriesState = ref.watch(bookCategoriesProvider);
     return SizedBox(
       height: 580.h,
       child: GridView.builder(
         shrinkWrap: true,
-        itemCount: homeState.currentCategory!.products.length,
+        itemCount: categoriesState.isEmpty
+            ? homeState.currentCategory!.products.length
+            : categoriesState.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           mainAxisExtent: 260.h,
           crossAxisCount: 2,
@@ -181,11 +207,14 @@ class ProductWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final homeState = ref.watch(homeProvider);
     final homeNotifier = ref.read(homeProvider.notifier);
+    final categoriesState = ref.watch(bookCategoriesProvider);
     return InkWell(
       onTap: () {
         //? update current product
         homeNotifier.setCurrentProduct(
-          homeState.currentCategory!.products[productIndex],
+          categoriesState.isEmpty
+              ? homeState.currentCategory!.products[productIndex]
+              : categoriesState[productIndex],
         );
         //Todo: go to home page
       },
@@ -209,7 +238,9 @@ class ProductWidget extends ConsumerWidget {
                 //Todo: image kontrol edilecek!
                 child: Image.network(
                   fit: BoxFit.fill,
-                  homeState.currentCategory!.products[productIndex].url,
+                  categoriesState.isEmpty
+                      ? homeState.currentCategory!.products[productIndex].url
+                      : categoriesState[productIndex].url,
                   errorBuilder: (context, error, stackTrace) {
                     return Container(
                       height: 210.h,
@@ -231,7 +262,10 @@ class ProductWidget extends ConsumerWidget {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        homeState.currentCategory!.products[productIndex].name,
+                        categoriesState.isEmpty
+                            ? homeState
+                                .currentCategory!.products[productIndex].name
+                            : categoriesState[productIndex].name,
                         style: GoogleFonts.manrope(
                           textStyle: TextStyle(
                             color: AppColors.blackColor,
@@ -252,8 +286,10 @@ class ProductWidget extends ConsumerWidget {
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              homeState.currentCategory!.products[productIndex]
-                                  .author,
+                              categoriesState.isEmpty
+                                  ? homeState.currentCategory!
+                                      .products[productIndex].author
+                                  : categoriesState[productIndex].author,
                               style: GoogleFonts.manrope(
                                 textStyle: TextStyle(
                                   color: AppColors.black60,
@@ -271,10 +307,15 @@ class ProductWidget extends ConsumerWidget {
                         Align(
                           alignment: Alignment.centerRight,
                           child: Text(
-                            homeState
-                                .currentCategory!.products[productIndex].price
-                                .toString()
-                                .dollar,
+                            categoriesState.isEmpty
+                                ? homeState.currentCategory!
+                                    .products[productIndex].price
+                                    .toString()
+                                    .dollar
+                                : categoriesState[productIndex]
+                                    .price
+                                    .toString()
+                                    .dollar,
                             style: GoogleFonts.manrope(
                               textStyle: TextStyle(
                                 color: AppColors.purpleColor,
@@ -298,3 +339,4 @@ class ProductWidget extends ConsumerWidget {
     );
   }
 }
+

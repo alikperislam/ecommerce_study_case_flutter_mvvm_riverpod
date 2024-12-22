@@ -1,3 +1,4 @@
+import 'package:ecommerce_case_study/src/core/locator/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -15,6 +16,8 @@ mixin BookCategoriesPageMixin<T extends ConsumerStatefulWidget>
   void dispose() {
     //? stop controller
     searchController.dispose();
+
     super.dispose();
   }
 }
+

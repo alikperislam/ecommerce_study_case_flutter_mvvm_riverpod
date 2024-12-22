@@ -3,17 +3,18 @@ import 'package:ecommerce_case_study/src/core/utils/image_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final bool showBackButton;
+  final VoidCallback? onBackPressed;
 
   const CustomAppbar({
     super.key,
     required this.title,
     required this.showBackButton,
+    this.onBackPressed,
   });
 
   @override
@@ -31,7 +32,7 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
               children: [
                 //? logo or back button
                 showBackButton
-                    ? const BackButtonWidget()
+                    ? BackButtonWidget(onBackPressed: onBackPressed)
                     : const AppLogoWidget(),
                 //? appbar title
                 TitleWidget(title: title),
@@ -66,8 +67,10 @@ class AppLogoWidget extends StatelessWidget {
 }
 
 class BackButtonWidget extends StatelessWidget {
+  final VoidCallback? onBackPressed;
   const BackButtonWidget({
     super.key,
+    this.onBackPressed,
   });
 
   @override
@@ -80,10 +83,7 @@ class BackButtonWidget extends StatelessWidget {
           color: AppColors.whiteColor,
           shape: const CircleBorder(),
           child: InkWell(
-            onTap: () {
-              //? back to previous page
-              context.pop();
-            },
+            onTap: onBackPressed,
             customBorder: const CircleBorder(),
             child: Ink(
               width: 25.w,

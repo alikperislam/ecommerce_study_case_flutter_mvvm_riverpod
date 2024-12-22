@@ -1,10 +1,12 @@
 import 'package:ecommerce_case_study/src/core/init/cache/hive_operations.dart';
 import 'package:ecommerce_case_study/src/core/widgets/custom_snackbar.dart';
+import 'package:ecommerce_case_study/src/feature/book_categories/provider/book_categories_provider.dart';
 import 'package:ecommerce_case_study/src/feature/home/provider/home/home_provider.dart';
 import 'package:ecommerce_case_study/src/feature/home/service/i_catalog_service.dart';
 import 'package:ecommerce_case_study/src/feature/register/provider/register/register_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import '../../feature/home/model/catalog/catalog_response_model.dart';
 import '../../feature/login/provider/login/login_provider.dart';
 import '../../feature/login/service/i_login_service.dart';
 import '../../feature/register/service/i_register_service.dart';
@@ -45,6 +47,13 @@ final homeProvider = NotifierProvider<HomeNotifier, HomeState>(
     cache: GetitLocator.getIt<CacheOperations>(),
   ),
 );
+
+//? book categories
+final bookCategoriesProvider =
+    StateNotifierProvider<BookCategoriesNotifier, List<ProductModel>>(
+  (ref) => BookCategoriesNotifier(),
+);
+
 
 //Todo: others
 
