@@ -318,7 +318,9 @@ class ViewButtonWidget extends ConsumerWidget {
       onTap: () {
         //? update current category
         homeNotifier.setCurrentCategory(
-            homeState.categories[categoryIndex], categoryIndex);
+          homeState.categories[categoryIndex],
+          categoryIndex,
+        );
         //? go to categories page
         context.push(AppRouteNamed.bookCategoriesPage.path);
       },
@@ -353,9 +355,15 @@ class ProductsWidget extends ConsumerWidget {
     return InkWell(
       onTap: () {
         //? update current product
-        homeNotifier.setCurrentProduct(
-          homeState.categories[categoryIndex].products[productIndex],
-        );
+        homeNotifier
+          ..setCurrentProduct(
+            homeState.categories[categoryIndex].products[productIndex],
+            productIndex,
+          )
+          ..setCurrentCategory(
+            homeState.categories[categoryIndex],
+            categoryIndex,
+          );
         //? go to book details page
         context.push(AppRouteNamed.bookDetailsPage.path);
       },

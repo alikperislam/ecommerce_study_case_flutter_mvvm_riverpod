@@ -37,8 +37,11 @@ class HomeNotifier extends Notifier<HomeState> {
     );
   }
 
-  void setCurrentProduct(ProductModel product) {
-    state = state.copyWith(currentProduct: product);
+  void setCurrentProduct(ProductModel product, int index) {
+    state = state.copyWith(
+      currentProduct: product,
+      currentProductIndex: index,
+    );
   }
 
   void setCatalog(int index) {
@@ -93,8 +96,31 @@ class HomeNotifier extends Notifier<HomeState> {
   Future<bool> _isCategoryDataStale(String createdDate) async {
     final created = DateTime.parse(createdDate);
     final now = DateTime.now();
-    final differenceInDays = now.difference(created).inSeconds; //! .inMinute
+    final differenceInDays = now.difference(created).inMinutes; //! .inMinute
     return differenceInDays > 1;
+  }
+
+  //? After favorite click
+  void favClick() async {
+    //? Fetch categories from cache
+    final cachedCategories = await _fetchCategoriesFromCache();
+
+    //? Update categories state
+    setCategories(cachedCategories);
+
+    //? Fetch the current category and product indices
+    final currentCategoryIndex = state.currentCategoryIndex;
+    final currentProductIndex = state.currentProductIndex;
+
+    if (currentCategoryIndex != null && currentProductIndex != null) {
+      //? Get the updated current category and product from the cached categories
+      final updatedCategory = cachedCategories[currentCategoryIndex];
+      final updatedProduct = updatedCategory.products[currentProductIndex];
+
+      //? Update the current category and product state
+      setCurrentCategory(updatedCategory, currentCategoryIndex);
+      setCurrentProduct(updatedProduct, currentProductIndex);
+    }
   }
 
   //? Get the list of categories that have been converted.

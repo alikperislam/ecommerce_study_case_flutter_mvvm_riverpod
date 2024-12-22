@@ -12,6 +12,7 @@ class CustomSnackbar {
   void showCustomSnackbar({
     required BuildContext context,
     required String message,
+    bool successMessage = false,
   }) {
     final overlay = Overlay.of(context);
     final overlayEntry = OverlayEntry(
@@ -26,7 +27,9 @@ class CustomSnackbar {
               margin: EdgeInsets.symmetric(horizontal: 20.w),
               padding: EdgeInsets.all(15.h),
               decoration: BoxDecoration(
-                color: AppColors.redColor,
+                color: successMessage == true
+                    ? AppColors.purpleColor
+                    : AppColors.redColor,
                 borderRadius: BorderRadius.circular(5.r),
               ),
               //? Error content

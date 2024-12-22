@@ -90,7 +90,7 @@ class ProductModelDb {
   @HiveField(7)
   final String slug;
   @HiveField(8)
-  final int likesCount;
+  int likesCount;
   @HiveField(9)
   final String url;
 

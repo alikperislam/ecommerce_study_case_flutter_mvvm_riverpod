@@ -1,6 +1,7 @@
 import 'package:ecommerce_case_study/src/core/init/cache/hive_operations.dart';
 import 'package:ecommerce_case_study/src/core/widgets/custom_snackbar.dart';
 import 'package:ecommerce_case_study/src/feature/book_categories/provider/book_categories_provider.dart';
+import 'package:ecommerce_case_study/src/feature/book_details/service/i_fav_service.dart';
 import 'package:ecommerce_case_study/src/feature/home/provider/home/home_provider.dart';
 import 'package:ecommerce_case_study/src/feature/home/service/i_catalog_service.dart';
 import 'package:ecommerce_case_study/src/feature/register/provider/register/register_provider.dart';
@@ -61,5 +62,6 @@ final detailsProvider = NotifierProvider<BookDetailsNotifier, BookDetailsState>(
     snackbar: GetitLocator.getIt<CustomSnackbar>(),
     connection: GetitLocator.getIt<InternetConnectionChecker>(),
     cache: GetitLocator.getIt<CacheOperations>(),
+    favService: GetitLocator.getIt<IFavService>(),
   ),
 );

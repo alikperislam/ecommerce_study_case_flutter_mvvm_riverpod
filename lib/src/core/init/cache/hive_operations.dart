@@ -103,6 +103,21 @@ class CacheOperations {
     }
   }
 
+  //? Update product like status
+  Future<void> setLikeData({
+    required int categoryId,
+    required int productId,
+    required int like,
+  }) async {
+    UserHiveDb? account = await getUserDb();
+    int? userIndex = await _getCurrentAccountIndex();
+    if (userIndex != null && userIndex >= 0) {
+      account!.user.categoryField!.categories[categoryId].products[productId]
+          .likesCount = like;
+      await dbBox.putAt(userIndex, account);
+    }
+  }
+
   //? Get the list of categories that have been converted.
   Future<List<CategoryModel>> getCategoryData() async {
     UserHiveDb? account = await getUserDb();

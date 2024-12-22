@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:ecommerce_case_study/src/core/constants/app_constants.dart';
+import 'package:ecommerce_case_study/src/feature/book_details/service/fav_service.dart';
 import 'package:ecommerce_case_study/src/feature/home/service/i_catalog_service.dart';
 import 'package:ecommerce_case_study/src/feature/login/service/i_login_service.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import '../../feature/book_details/service/i_fav_service.dart';
 import '../../feature/home/service/catalog_service.dart';
 import '../../feature/login/service/login_service.dart';
 import '../../feature/register/service/i_register_service.dart';
@@ -48,6 +50,12 @@ class GetitLocator {
     //? CacheOperations - DI
     getIt.registerLazySingleton<CacheOperations>(
       () => CacheOperations(kDbBox),
+    );
+    //? fav service - DI
+    getIt.registerLazySingleton<IFavService>(
+      () => FavService(
+        getIt<Dio>(),
+      ),
     );
   }
 }

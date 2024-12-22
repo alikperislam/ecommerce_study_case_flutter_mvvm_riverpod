@@ -215,6 +215,7 @@ class ProductWidget extends ConsumerWidget {
           categoriesState.isEmpty
               ? homeState.currentCategory!.products[productIndex]
               : categoriesState[productIndex],
+          productIndex,
         );
         //? go to book details page
         context.push(AppRouteNamed.bookDetailsPage.path);

@@ -22,7 +22,6 @@ class _BookDetailsPageUiState extends ConsumerState<BookDetailsPageUi> {
   @override
   Widget build(BuildContext context) {
     final homeState = ref.watch(homeProvider);
-    final detailsState = ref.watch(detailsProvider);
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemTheme.systemPanelColors(
         screen: SystemThemeScreenEnum.general,
@@ -37,8 +36,7 @@ class _BookDetailsPageUiState extends ConsumerState<BookDetailsPageUi> {
           ),
           body: homeState.isSubmitting ||
                   homeState.categories.isEmpty ||
-                  homeState.currentProduct == null ||
-                  detailsState.isSubmitting
+                  homeState.currentProduct == null
               ? Center(
                   child: SizedBox(
                     height: 35.h,
@@ -123,31 +121,61 @@ class FavouriteButtonWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final homeState = ref.watch(homeProvider);
-    return Align(
-      alignment: Alignment.topRight,
-      child: InkWell(
-        onTap: () {
-          //Todo: like-unlike servisini tetikle.
-        },
-        customBorder: const CircleBorder(),
-        child: Ink(
-          height: 45.h,
-          width: 45.h,
-          decoration: const BoxDecoration(
-            color: AppColors.greyColor,
-            shape: BoxShape.circle,
-          ),
-          child: Center(
-            child: Icon(
-              homeState.currentProduct!.likesCount == 0
-                  ? Icons.favorite_border_rounded
-                  : Icons.favorite_rounded,
-              size: 22.r,
-              color: AppColors.purpleColor,
+    final homeNotifier = ref.read(homeProvider.notifier);
+    final detailsNotifier = ref.read(detailsProvider.notifier);
+    final detailsState = ref.watch(detailsProvider);
+    return Stack(
+      children: [
+        //?
+        Align(
+          alignment: Alignment.topRight,
+          child: InkWell(
+            onTap: () async {
+              //? like-unlike trigger.
+              bool status = await detailsNotifier.postFavorite(
+                categoryIndex: homeState.currentCategoryIndex!,
+                productIndex: homeState.currentProductIndex!,
+                productId: homeState.currentProduct!.id.toString(),
+                context: context,
+              );
+              if (status) {
+                homeNotifier.favClick();
+              }
+            },
+            customBorder: const CircleBorder(),
+            child: Ink(
+              height: 45.h,
+              width: 45.h,
+              decoration: const BoxDecoration(
+                color: AppColors.greyColor,
+                shape: BoxShape.circle,
+              ),
+              child: Center(
+                child: Icon(
+                  homeState.currentProduct!.likesCount == 0
+                      ? Icons.favorite_border_rounded
+                      : Icons.favorite_rounded,
+                  size: 22.r,
+                  color: AppColors.purpleColor,
+                ),
+              ),
             ),
           ),
         ),
-      ),
+        //?
+        if (detailsState.isSubmitting)
+          Align(
+            alignment: Alignment.topRight,
+            child: SizedBox(
+              height: 45.h,
+              width: 45.h,
+              child: CircularProgressIndicator(
+                color: AppColors.purpleColor,
+                strokeWidth: 1.5.w,
+              ),
+            ),
+          ),
+      ],
     );
   }
 }

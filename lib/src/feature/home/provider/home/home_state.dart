@@ -7,6 +7,7 @@ class HomeState {
   final bool isSubmitting;
   final CatalogButtons chooseCatalog;
   final int? currentCategoryIndex;
+  final int? currentProductIndex;
 
   const HomeState({
     this.categories = const [],
@@ -15,6 +16,7 @@ class HomeState {
     this.isSubmitting = false,
     this.chooseCatalog = CatalogButtons.all,
     this.currentCategoryIndex,
+    this.currentProductIndex,
   });
 
   HomeState copyWith({
@@ -24,6 +26,7 @@ class HomeState {
     bool? isSubmitting,
     CatalogButtons? chooseCatalog,
     int? currentCategoryIndex,
+    int? currentProductIndex,
   }) {
     return HomeState(
       categories: categories ?? this.categories,
@@ -32,6 +35,7 @@ class HomeState {
       isSubmitting: isSubmitting ?? this.isSubmitting,
       chooseCatalog: chooseCatalog ?? this.chooseCatalog,
       currentCategoryIndex: currentCategoryIndex ?? this.currentCategoryIndex,
+      currentProductIndex: currentProductIndex ?? this.currentProductIndex,
     );
   }
 }
