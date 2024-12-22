@@ -71,5 +71,4 @@ Bu proje [MIT Lisansı](LICENSE) ile lisanslanmıştır.
 ---
 
 ### 👏 Teşekkürler
-Bu projede emeği geçen herkese teşekkürler!
 
