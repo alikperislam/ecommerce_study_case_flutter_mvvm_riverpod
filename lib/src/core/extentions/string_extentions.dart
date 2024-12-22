@@ -15,6 +15,11 @@ extension PriceWithDollar on String {
 //? CatalogButtons extension for localization
 extension CatalogButtonsExtension on CatalogButtons {
   String get name {
+    final localizedValue = _localizedName();
+    return localizedValue.trim().toLowerCase();
+  }
+
+  String _localizedName() {
     switch (this) {
       case CatalogButtons.all:
         return LocaleKeys.catalogAll.locale;

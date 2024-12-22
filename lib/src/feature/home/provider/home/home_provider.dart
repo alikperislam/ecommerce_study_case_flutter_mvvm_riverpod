@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:ecommerce_case_study/src/core/extentions/string_extentions.dart';
 import 'package:ecommerce_case_study/src/feature/home/service/i_catalog_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -44,6 +45,7 @@ class HomeNotifier extends Notifier<HomeState> {
     );
   }
 
+  //? from button
   void setCatalog(int index) {
     switch (index) {
       case -1:
@@ -62,6 +64,19 @@ class HomeNotifier extends Notifier<HomeState> {
         state = state.copyWith(chooseCatalog: CatalogButtons.philosophy);
         break;
     }
+  }
+
+  //? from search
+  void searchCatalog(String searchTerm) {
+    final searchLowerCase = searchTerm.trim().toLowerCase();
+    final matchedCatalog = CatalogButtons.values.firstWhere(
+      (catalog) {
+        final localizedName = catalog.name;
+        return localizedName.contains(searchLowerCase);
+      },
+      orElse: () => CatalogButtons.all,
+    );
+    state = state.copyWith(chooseCatalog: matchedCatalog);
   }
 
   //? If the state does not exist, create the state. but if it does exist, don't do the same process again.
@@ -100,7 +115,7 @@ class HomeNotifier extends Notifier<HomeState> {
     return differenceInDays > 1;
   }
 
-  //? After favorite click
+  //? After favourite click
   void favClick() async {
     //? Fetch categories from cache
     final cachedCategories = await _fetchCategoriesFromCache();

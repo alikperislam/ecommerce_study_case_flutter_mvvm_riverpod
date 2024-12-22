@@ -44,7 +44,7 @@ class App extends StatelessWidget {
       builder: (_, child) {
         //? Router
         return MaterialApp.router(
-          //? localization
+          //? localiza tion
           localizationsDelegates: context.localizationDelegates,
           locale: context.locale,
           supportedLocales: context.supportedLocales,

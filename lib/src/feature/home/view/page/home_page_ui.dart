@@ -58,7 +58,7 @@ class _HomePageUiState extends ConsumerState<HomePageUi>
                     child: Column(
                       children: [
                         //? category buttons (row)
-                        const CatalogButtonsWidget(),
+                        CatalogButtonsWidget(textController: searchController),
                         //? search textfield
                         TextFieldWidget(
                           hintText: LocaleKeys.searchHintText.locale,
@@ -77,8 +77,10 @@ class _HomePageUiState extends ConsumerState<HomePageUi>
 }
 
 class CatalogButtonsWidget extends ConsumerWidget {
+  final TextEditingController textController;
   const CatalogButtonsWidget({
     super.key,
+    required this.textController,
   });
 
   @override
@@ -98,10 +100,13 @@ class CatalogButtonsWidget extends ConsumerWidget {
         itemBuilder: (context, index) {
           //? first index 'All' button
           if (index == 0) {
-            return const CatalogButton(index: -1);
+            return CatalogButton(index: -1, textController: textController);
           }
           //? other indexes(api)
-          return CatalogButton(index: index - 1);
+          return CatalogButton(
+            index: index - 1,
+            textController: textController,
+          );
         },
       ),
     );
@@ -110,9 +115,11 @@ class CatalogButtonsWidget extends ConsumerWidget {
 
 class CatalogButton extends ConsumerWidget {
   final int index;
+  final TextEditingController textController;
   const CatalogButton({
     super.key,
     required this.index,
+    required this.textController,
   });
 
   @override
@@ -123,6 +130,7 @@ class CatalogButton extends ConsumerWidget {
       onTap: () {
         //? choose a catalog.
         homeNotifier.setCatalog(index);
+        textController.clear();
       },
       borderRadius: BorderRadius.circular(4.r),
       child: Ink(
@@ -165,7 +173,7 @@ class TextFieldWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    //final homeNotifier = ref.read(homeProvider.notifier);
+    final homeNotifier = ref.read(homeProvider.notifier);
     return Padding(
       padding: EdgeInsets.only(top: 20.h),
       child: Container(
@@ -178,6 +186,10 @@ class TextFieldWidget extends ConsumerWidget {
         child: TextField(
           scrollPadding: EdgeInsets.only(bottom: 150.h),
           controller: textController,
+          onChanged: (value) {
+            //? serach trigger
+            homeNotifier.searchCatalog(value);
+          },
           //? hint text style
           decoration: InputDecoration(
             hintText: hintText,
@@ -201,10 +213,7 @@ class TextFieldWidget extends ConsumerWidget {
                 color: AppColors.black40,
                 size: 20.w,
               ),
-              onPressed: () {
-                //Todo: butona basildiginda arama islemini tetikle.
-                debugPrint(textController.text);
-              },
+              onPressed: () => debugPrint(textController.text),
             ),
           ),
           textAlignVertical: TextAlignVertical.center,
@@ -222,7 +231,6 @@ class TextFieldWidget extends ConsumerWidget {
   }
 }
 
-//Todo: arama ile ortaklastir.
 class ShortCatalogsWidget extends ConsumerWidget {
   const ShortCatalogsWidget({super.key});
 

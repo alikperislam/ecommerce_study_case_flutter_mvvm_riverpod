@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:hive/hive.dart';
 import '../../../feature/home/model/catalog/catalog_response_model.dart';
 part 'hive_model.g.dart';
