@@ -9,10 +9,14 @@ class UserHiveDb {
   bool currentUser;
 
   @HiveField(1)
+  DateTime lastSessionDate;
+
+  @HiveField(2)
   UserDb user;
 
   UserHiveDb({
     required this.currentUser,
+    required this.lastSessionDate,
     required this.user,
   });
 }

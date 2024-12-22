@@ -40,6 +40,7 @@ dependencies:
   # json web token 
   jwt_decoder: ^2.0.1
   
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -50,6 +51,7 @@ dev_dependencies:
   # testing
   mockito: ^5.4.4
 
+  
 flutter:
   uses-material-design: true
 
@@ -58,6 +60,3 @@ flutter:
     - assets/image/
     - assets/l10n/
     - assets/.env
-
-
-    

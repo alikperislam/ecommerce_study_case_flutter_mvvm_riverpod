@@ -6,6 +6,7 @@ import 'hive_model.dart';
 class CacheOperations {
   final Box dbBox;
   CacheOperations(this.dbBox);
+
   //? get user account infos.
   Future<UserHiveDb?> getUserDb() async {
     int? index = await _getCurrentAccountIndex();
@@ -13,16 +14,34 @@ class CacheOperations {
       UserHiveDb? user = dbBox.getAt(index) as UserHiveDb;
       return user;
     } else {
-      return null;
+      if (dbBox.isNotEmpty) {
+        UserHiveDb? mostRecentUser = dbBox.values.cast<UserHiveDb>().reduce(
+            (a, b) => a.lastSessionDate.isAfter(b.lastSessionDate) ? a : b);
+        return mostRecentUser;
+      }
     }
+    return null;
   }
 
-  //? get current account index.
+//? get current account index.
   Future<int?> _getCurrentAccountIndex() async {
-    int? currentUserIndex = dbBox.isEmpty
-        ? null
-        : dbBox.values.toList().indexWhere((i) => i.currentUser);
-    return currentUserIndex;
+    if (dbBox.isEmpty) return null;
+    int currentUserIndex =
+        dbBox.values.toList().indexWhere((i) => i.currentUser);
+    if (currentUserIndex != -1) {
+      return currentUserIndex;
+    }
+    UserHiveDb? mostRecentUser;
+    int? mostRecentIndex;
+    for (int i = 0; i < dbBox.length; i++) {
+      UserHiveDb user = dbBox.getAt(i) as UserHiveDb;
+      if (mostRecentUser == null ||
+          user.lastSessionDate.isAfter(mostRecentUser.lastSessionDate)) {
+        mostRecentUser = user;
+        mostRecentIndex = i;
+      }
+    }
+    return mostRecentIndex;
   }
 
   //? check if the token belongs to the user.
@@ -68,6 +87,7 @@ class CacheOperations {
       //? the relevant account already exists in cache.
       UserHiveDb? account = dbBox.getAt(userIndex) as UserHiveDb;
       account.currentUser = userDb.currentUser;
+      account.lastSessionDate = userDb.lastSessionDate;
       account.user.token = userDb.user.token;
       await dbBox.putAt(userIndex, account);
     }

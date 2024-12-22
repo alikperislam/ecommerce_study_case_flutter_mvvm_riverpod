@@ -18,17 +18,20 @@ class UserHiveDbAdapter extends TypeAdapter<UserHiveDb> {
     };
     return UserHiveDb(
       currentUser: fields[0] as bool,
-      user: fields[1] as UserDb,
+      lastSessionDate: fields[1] as DateTime,
+      user: fields[2] as UserDb,
     );
   }
 
   @override
   void write(BinaryWriter writer, UserHiveDb obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.currentUser)
       ..writeByte(1)
+      ..write(obj.lastSessionDate)
+      ..writeByte(2)
       ..write(obj.user);
   }
 

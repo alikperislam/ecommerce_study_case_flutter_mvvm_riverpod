@@ -117,24 +117,28 @@ class HomeNotifier extends Notifier<HomeState> {
 
   //? After favourite click
   void favClick() async {
-    //? Fetch categories from cache
-    final cachedCategories = await _fetchCategoriesFromCache();
+    try {
+      //? Fetch categories from cache
+      final cachedCategories = await _fetchCategoriesFromCache();
 
-    //? Update categories state
-    setCategories(cachedCategories);
+      //? Update categories state
+      setCategories(cachedCategories);
 
-    //? Fetch the current category and product indices
-    final currentCategoryIndex = state.currentCategoryIndex;
-    final currentProductIndex = state.currentProductIndex;
+      //? Fetch the current category and product indices
+      final currentCategoryIndex = state.currentCategoryIndex;
+      final currentProductIndex = state.currentProductIndex;
 
-    if (currentCategoryIndex != null && currentProductIndex != null) {
-      //? Get the updated current category and product from the cached categories
-      final updatedCategory = cachedCategories[currentCategoryIndex];
-      final updatedProduct = updatedCategory.products[currentProductIndex];
+      if (currentCategoryIndex != null && currentProductIndex != null) {
+        //? Get the updated current category and product from the cached categories
+        final updatedCategory = cachedCategories[currentCategoryIndex];
+        final updatedProduct = updatedCategory.products[currentProductIndex];
 
-      //? Update the current category and product state
-      setCurrentCategory(updatedCategory, currentCategoryIndex);
-      setCurrentProduct(updatedProduct, currentProductIndex);
+        //? Update the current category and product state
+        setCurrentCategory(updatedCategory, currentCategoryIndex);
+        setCurrentProduct(updatedProduct, currentProductIndex);
+      }
+    } catch (e) {
+      debugPrint('favClick error: $e');
     }
   }
 

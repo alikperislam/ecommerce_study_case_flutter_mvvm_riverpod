@@ -119,6 +119,7 @@ class RegisterNotifier extends Notifier<RegisterState> {
               .userRegister(
             userDb: UserHiveDb(
               currentUser: false,
+              lastSessionDate: DateTime.now(),
               user: UserDb(
                 token: value.actionRegister!.token!,
               ),

@@ -109,6 +109,7 @@ class LoginNotifier extends Notifier<LoginState> {
               .userLogin(
             userDb: UserHiveDb(
               currentUser: state.rememberMe,
+              lastSessionDate: DateTime.now(),
               user: UserDb(
                 token: value.actionLogin!.token!,
               ),
