@@ -21,7 +21,16 @@
     "errorRegister": "Registration failed, please try again.",
     "errorLogin": "Login failed, please try again.",
     "catalogTitle": "Catalog",
-    "all": "All",
     "searchHintText": "Search",
-    "viewAllButton": "View All"
+    "viewAllButton": "View All",
+    "catalogAll": "All",
+    "catalogBestSeller": "Best Seller",
+    "catalogClassic": "Classic",
+    "catalogChildren": "Children",
+    "catalogPhilosophy": "Philosophy",
+    "summary": "Summary",
+    "buy": "Buy Now",
+    "bookDetails": "Book Details",
+    "likePush": "Product added to favorites",
+    "unlikePush": "Product removed from favorites."
 }

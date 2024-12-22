@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
+import '../../feature/book_categories/view/page/book_categories_page_ui.dart';
 import '../../feature/home/view/page/home_page_ui.dart';
 import '../../feature/login/view/page/login_page_ui.dart';
 import '../../feature/register/view/page/register_page_ui.dart';
@@ -65,6 +66,16 @@ class AppRoutes {
         },
         onExit: (context, state) {
           return false;
+        },
+      ),
+      //? book categories page
+      GoRoute(
+        path: AppRouteNamed.bookCategoriesPage.path,
+        pageBuilder: (context, state) {
+          return buildCustomTransitionPage(
+            state: state,
+            child: const BookCategoriesPageUi(),
+          );
         },
       ),
     ],

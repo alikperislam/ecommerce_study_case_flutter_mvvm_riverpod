@@ -2,23 +2,18 @@ import 'dart:async';
 import 'package:ecommerce_case_study/src/feature/home/service/i_catalog_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
+import '../../../../core/constants/app_constants.dart';
 import '../../../../core/constants/enums.dart';
 import '../../../../core/init/cache/hive_operations.dart';
-import '../../../../core/widgets/custom_snackbar.dart';
 import '../../model/catalog/catalog_response_model.dart';
 import '../../model/images/image_request_model.dart';
 part 'home_state.dart';
 
 class HomeNotifier extends Notifier<HomeState> {
   //? Dependencies
-  final CustomSnackbar snackbar;
-  final InternetConnectionChecker connection;
   final ICatalogService catalogService;
   final CacheOperations cache;
   HomeNotifier({
-    required this.snackbar,
-    required this.connection,
     required this.catalogService,
     required this.cache,
   });
@@ -33,6 +28,17 @@ class HomeNotifier extends Notifier<HomeState> {
 
   void setIsSubmitting(bool value) {
     state = state.copyWith(isSubmitting: value);
+  }
+
+  void setCurrentCategory(CategoryModel category, int index) {
+    state = state.copyWith(
+      currentCategory: category,
+      currentCategoryIndex: index,
+    );
+  }
+
+  void setCurrentProduct(ProductModel product) {
+    state = state.copyWith(currentProduct: product);
   }
 
   void setCatalog(int index) {
@@ -87,7 +93,7 @@ class HomeNotifier extends Notifier<HomeState> {
   Future<bool> _isCategoryDataStale(String createdDate) async {
     final created = DateTime.parse(createdDate);
     final now = DateTime.now();
-    final differenceInDays = now.difference(created).inMinutes; //! .inMinute
+    final differenceInDays = now.difference(created).inSeconds; //! .inMinute
     return differenceInDays > 1;
   }
 
@@ -141,7 +147,7 @@ class HomeNotifier extends Notifier<HomeState> {
           //? add product to products list
           products.add(ProductModel.fromJson({
             ...product.toJson(),
-            'url': coverUrl!.actionProductImage!.url.toString(),
+            kUrl: coverUrl!.actionProductImage!.url.toString(),
           }));
         }
         //? add category to categories list
@@ -154,7 +160,7 @@ class HomeNotifier extends Notifier<HomeState> {
       return categories;
     } catch (e) {
       //? error handling
-      debugPrint("error: $e");
+      debugPrint("$e");
       return [];
     }
   }

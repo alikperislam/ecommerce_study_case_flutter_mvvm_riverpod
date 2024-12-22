@@ -41,8 +41,6 @@ final loginProvider = NotifierProvider<LoginNotifier, LoginState>(
 //? home
 final homeProvider = NotifierProvider<HomeNotifier, HomeState>(
   () => HomeNotifier(
-    snackbar: GetitLocator.getIt<CustomSnackbar>(),
-    connection: GetitLocator.getIt<InternetConnectionChecker>(),
     catalogService: GetitLocator.getIt<ICatalogService>(),
     cache: GetitLocator.getIt<CacheOperations>(),
   ),

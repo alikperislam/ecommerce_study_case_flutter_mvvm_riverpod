@@ -21,7 +21,16 @@
     "errorRegister": "Kayıt olma işlemi başarısız oldu, lütfen tekrar deneyiniz.",
     "errorLogin": "Giriş yapma işlemi başarısız oldu, lütfen tekrar deneyiniz.",
     "catalogTitle": "Katalog",
-    "all": "All",
     "searchHintText": "Arama",
-    "viewAllButton": "Tümünü Gör"
+    "viewAllButton": "Tümünü Gör",
+    "catalogAll": "Tümü",
+    "catalogBestSeller": "Çok Satanlar",
+    "catalogClassic": "Klasik",
+    "catalogChildren": "Çocuklar",
+    "catalogPhilosophy": "Felsefe",
+    "summary": "Özet",
+    "buy": "Şimdi Al",
+    "bookDetails": "Kitap Detayı",
+    "likePush": "Ürün favorilere eklendi.",
+    "unlikePush": "Ürün favorilerden çıkarıldı."
 }

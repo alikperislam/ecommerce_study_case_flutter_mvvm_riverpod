@@ -7,6 +7,7 @@ const kEnvironmentPath = "assets/.env";
 //? hive constants
 late Box kDbBox;
 const kDbStorage = "UserStorage";
+const kUrl = "url";
 //? regex constants
 final kNameRegex = RegExp(r'^[\p{L}]+(\s[\p{L}]+)*$', unicode: true);
 final kPasswordRegex = RegExp(r'^[\p{L}0-9]{6,20}$', unicode: true);

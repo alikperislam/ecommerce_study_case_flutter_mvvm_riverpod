@@ -1,11 +1,14 @@
+import 'package:ecommerce_case_study/src/core/constants/enums.dart';
 import 'package:ecommerce_case_study/src/core/extentions/string_extentions.dart';
 import 'package:ecommerce_case_study/src/core/init/localization/locale_keys.g.dart';
 import 'package:ecommerce_case_study/src/core/locator/providers.dart';
+import 'package:ecommerce_case_study/src/core/router/app_route_named.dart';
 import 'package:ecommerce_case_study/src/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../../core/theme/system_theme.dart';
 import '../../../../core/widgets/custom_appbar.dart';
@@ -133,9 +136,7 @@ class CatalogButton extends ConsumerWidget {
           padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: Center(
             child: Text(
-              index == -1
-                  ? LocaleKeys.all.locale
-                  : homeState.categories[index].categoryName,
+              CatalogButtons.values[index + 1].name,
               style: GoogleFonts.manrope(
                 textStyle: TextStyle(
                   color: homeState.chooseCatalog.buttonIndex == index
@@ -164,7 +165,7 @@ class TextFieldWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final homeNotifier = ref.read(homeProvider.notifier);
+    //final homeNotifier = ref.read(homeProvider.notifier);
     return Padding(
       padding: EdgeInsets.only(top: 20.h),
       child: Container(
@@ -177,10 +178,6 @@ class TextFieldWidget extends ConsumerWidget {
         child: TextField(
           scrollPadding: EdgeInsets.only(bottom: 150.h),
           controller: textController,
-          onChanged: (value) {
-            //Todo: arama islemini her klavyeye basildiginda tetikle.
-            debugPrint(value);
-          },
           //? hint text style
           decoration: InputDecoration(
             hintText: hintText,
@@ -199,15 +196,16 @@ class TextFieldWidget extends ConsumerWidget {
               size: 20.w,
             ),
             suffixIcon: IconButton(
-                icon: Icon(
-                  Icons.tune_rounded,
-                  color: AppColors.black40,
-                  size: 20.w,
-                ),
-                onPressed: () {
-                  //Todo: butona basildiginda arama islemini tetikle.
-                  debugPrint(textController.text);
-                }),
+              icon: Icon(
+                Icons.tune_rounded,
+                color: AppColors.black40,
+                size: 20.w,
+              ),
+              onPressed: () {
+                //Todo: butona basildiginda arama islemini tetikle.
+                debugPrint(textController.text);
+              },
+            ),
           ),
           textAlignVertical: TextAlignVertical.center,
           //? user text style
@@ -224,16 +222,22 @@ class TextFieldWidget extends ConsumerWidget {
   }
 }
 
+//Todo: arama ile ortaklastir.
 class ShortCatalogsWidget extends ConsumerWidget {
   const ShortCatalogsWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Column(
-      children: List.generate(4, (index) {
-        return CatalogRow(categoryIndex: index);
-      }),
-    );
+    final homeState = ref.watch(homeProvider);
+    if (homeState.chooseCatalog == CatalogButtons.all) {
+      return Column(
+        children: List.generate(4, (index) {
+          return CatalogRow(categoryIndex: index);
+        }),
+      );
+    } else {
+      return CatalogRow(categoryIndex: homeState.chooseCatalog.buttonIndex);
+    }
   }
 }
 
@@ -246,8 +250,6 @@ class CatalogRow extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final homeState = ref.watch(homeProvider);
-    final homeNotifier = ref.read(homeProvider.notifier);
     return Padding(
       padding: EdgeInsets.only(top: 40.h),
       child: Column(
@@ -259,7 +261,7 @@ class CatalogRow extends ConsumerWidget {
             children: [
               //? category title
               Text(
-                homeState.categories[categoryIndex].categoryName,
+                CatalogButtons.values[categoryIndex + 1].name,
                 style: GoogleFonts.manrope(
                   textStyle: TextStyle(
                     color: AppColors.blackColor,
@@ -301,7 +303,7 @@ class CatalogRow extends ConsumerWidget {
   }
 }
 
-class ViewButtonWidget extends StatelessWidget {
+class ViewButtonWidget extends ConsumerWidget {
   final int categoryIndex;
   const ViewButtonWidget({
     super.key,
@@ -309,11 +311,16 @@ class ViewButtonWidget extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final homeState = ref.watch(homeProvider);
+    final homeNotifier = ref.read(homeProvider.notifier);
     return InkWell(
       onTap: () {
-        //Todo: go to categories page
-        debugPrint(categoryIndex.toString());
+        //? update current category
+        homeNotifier.setCurrentCategory(
+            homeState.categories[categoryIndex], categoryIndex);
+        //? go to categories page
+        context.push(AppRouteNamed.bookCategoriesPage.path);
       },
       borderRadius: BorderRadius.circular(4.r),
       child: Text(
@@ -345,9 +352,11 @@ class ProductsWidget extends ConsumerWidget {
     final homeNotifier = ref.read(homeProvider.notifier);
     return InkWell(
       onTap: () {
+        //? update current product
+        homeNotifier.setCurrentProduct(
+          homeState.categories[categoryIndex].products[productIndex],
+        );
         //Todo: go to book details page
-        debugPrint(categoryIndex.toString());
-        debugPrint(productIndex.toString());
       },
       borderRadius: BorderRadius.circular(4.r),
       child: Ink(
@@ -366,11 +375,18 @@ class ProductsWidget extends ConsumerWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4.r),
                 ),
+                //Todo: image kontrol edilecek!
                 child: Image.network(
                   homeState
                       .categories[categoryIndex].products[productIndex].url,
                   errorBuilder: (context, error, stackTrace) {
-                    return Container(color: AppColors.purpleColor);
+                    return Container(
+                      width: 80.w,
+                      decoration: BoxDecoration(
+                        color: AppColors.purpleColor,
+                        borderRadius: BorderRadius.circular(4.r),
+                      ),
+                    );
                   },
                 ),
               ),
