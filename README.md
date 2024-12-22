@@ -30,6 +30,21 @@ Bu projede aşağıdaki Flutter paketleri kullanılmıştır:
 - **internet_connection_checker**: Bağlantı kontrolü
 - **jwt_decoder**: JSON Web Token işlemleri
 
+## 📸 Ekran Görüntüleri
+### iOS Ekran Görüntüleri
+![iOS Ekran Görüntüsü 1](https://drive.google.com/file/d/1LvYHxtsD8_XppDC1jnFHldl4-G-FwPYG/view?usp=drive_link)
+![iOS Ekran Görüntüsü 2](https://drive.google.com/file/d/1LvYHxtsD8_XppDC1jnFHldl4-G-FwPYG/view?usp=drive_link)
+
+### Android Ekran Görüntüleri
+![Android Ekran Görüntüsü 1](https://drive.google.com/uc?id=1LvYHxtsD8_XppDC1jnFHldl4-G-FwPYG)
+![Android Ekran Görüntüsü 2](https://drive.google.com/file/d/1LvYHxtsD8_XppDC1jnFHldl4-G-FwPYG/view?usp=drive_link)
+
+### Ekran Videosu
+![Uygulama Ekran Videosu](app_video.gif)
+
+## 📂 APK Dosyası
+Uygulamayı test etmek için APK dosyasını indirip cihazınıza yükleyebilirsiniz:
+[Download APK](app-release.apk)
 
 ## 🛠️ Kurulum
 1. **Depoyu Klonlayın**
