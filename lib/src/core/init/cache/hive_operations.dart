@@ -1,3 +1,4 @@
+import 'package:ecommerce_case_study/src/feature/home/model/catalog/catalog_response_model.dart';
 import 'package:hive/hive.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'hive_model.dart';
@@ -81,5 +82,35 @@ class CacheOperations {
         await dbBox.putAt(i, account);
       }
     }
+  }
+
+  //? Update category data of the user account.
+  Future<void> setCategoryData({
+    required DateTime createdDate,
+    required List<CategoryModel> categories,
+  }) async {
+    UserHiveDb? account = await getUserDb();
+    int? userIndex = await _getCurrentAccountIndex();
+
+    if (userIndex != null && userIndex >= 0) {
+      account!.user.categoryField = CategoryField(
+        createdDate: createdDate,
+        categories: categories
+            .map((category) => CategoryModelDb.fromModel(category))
+            .toList(),
+      );
+      await dbBox.putAt(userIndex, account);
+    }
+  }
+
+  //? Get the list of categories that have been converted.
+  Future<List<CategoryModel>> getCategoryData() async {
+    UserHiveDb? account = await getUserDb();
+    if (account != null && account.user.categoryField != null) {
+      return account.user.categoryField!.categories
+          .map((categoryDb) => categoryDb.toModel())
+          .toList();
+    }
+    return [];
   }
 }

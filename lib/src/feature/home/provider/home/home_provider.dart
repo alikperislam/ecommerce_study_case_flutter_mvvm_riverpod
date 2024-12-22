@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'package:ecommerce_case_study/src/feature/home/service/i_catalog_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import '../../../../core/constants/enums.dart';
 import '../../../../core/init/cache/hive_operations.dart';
 import '../../../../core/widgets/custom_snackbar.dart';
 import '../../model/catalog/catalog_response_model.dart';
@@ -23,6 +25,88 @@ class HomeNotifier extends Notifier<HomeState> {
   @override
   HomeState build() {
     return const HomeState();
+  }
+
+  void setCategories(List<CategoryModel> categories) {
+    state = state.copyWith(categories: categories);
+  }
+
+  void setIsSubmitting(bool value) {
+    state = state.copyWith(isSubmitting: value);
+  }
+
+  void setCatalog(int index) {
+    switch (index) {
+      case -1:
+        state = state.copyWith(chooseCatalog: CatalogButtons.all);
+        break;
+      case 0:
+        state = state.copyWith(chooseCatalog: CatalogButtons.bestSeller);
+        break;
+      case 1:
+        state = state.copyWith(chooseCatalog: CatalogButtons.classic);
+        break;
+      case 2:
+        state = state.copyWith(chooseCatalog: CatalogButtons.children);
+        break;
+      case 3:
+        state = state.copyWith(chooseCatalog: CatalogButtons.philosophy);
+        break;
+    }
+  }
+
+  //? If the state does not exist, create the state. but if it does exist, don't do the same process again.
+  void getCategories() {
+    if (state.categories.isEmpty) categoryExistingController();
+  }
+
+  //? cache and api control function
+  void categoryExistingController() async {
+    setIsSubmitting(true);
+    final user = await cache.getUserDb();
+    if (user?.user.categoryField != null &&
+        user?.user.categoryField!.createdDate != null) {
+      String createdDate = user!.user.categoryField!.createdDate.toString();
+      bool isStale = await _isCategoryDataStale(createdDate);
+      if (isStale) {
+        //? there are categories in cache but they have not been updated for more than 24 hours. pull data from api.
+        await _fetchAndSetCategories();
+      } else {
+        //? categories are available in cachte. not expired yet.
+        final cachedCategories = await _fetchCategoriesFromCache();
+        setCategories(cachedCategories);
+        setIsSubmitting(false);
+      }
+    } else {
+      //? there are no categories in cache. fetch from api.
+      await _fetchAndSetCategories();
+    }
+  }
+
+  //? date controller
+  Future<bool> _isCategoryDataStale(String createdDate) async {
+    final created = DateTime.parse(createdDate);
+    final now = DateTime.now();
+    final differenceInDays = now.difference(created).inMinutes; //! .inMinute
+    return differenceInDays > 1;
+  }
+
+  //? Get the list of categories that have been converted.
+  Future<List<CategoryModel>> _fetchCategoriesFromCache() async {
+    return await cache.getCategoryData();
+  }
+
+  //? fetch api
+  Future<void> _fetchAndSetCategories() async {
+    //? fetch all data from api
+    final categories = await fetchAllData();
+    setCategories(categories);
+    //? set categories to cache
+    await cache.setCategoryData(
+      createdDate: DateTime.now(),
+      categories: categories,
+    );
+    setIsSubmitting(false);
   }
 
   //? create api requests for all products belonging to categories and provide a generic category structure of type CategoryModel.

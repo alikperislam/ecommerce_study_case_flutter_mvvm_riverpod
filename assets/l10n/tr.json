@@ -20,5 +20,8 @@
     "errorInternet": "İnternet bağlantınızı kontrol ediniz.",
     "errorRegister": "Kayıt olma işlemi başarısız oldu, lütfen tekrar deneyiniz.",
     "errorLogin": "Giriş yapma işlemi başarısız oldu, lütfen tekrar deneyiniz.",
-    "catalogTitle": "Katalog"
+    "catalogTitle": "Katalog",
+    "all": "All",
+    "searchHintText": "Arama",
+    "viewAllButton": "Tümünü Gör"
 }

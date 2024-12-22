@@ -7,5 +7,8 @@ class UserHiveAdapters {
   void hiveAdapters() {
     Hive.registerAdapter(UserHiveDbAdapter());
     Hive.registerAdapter(UserDbAdapter());
+    Hive.registerAdapter(CategoryFieldAdapter());
+    Hive.registerAdapter(CategoryModelDbAdapter());
+    Hive.registerAdapter(ProductModelDbAdapter());
   }
 }
