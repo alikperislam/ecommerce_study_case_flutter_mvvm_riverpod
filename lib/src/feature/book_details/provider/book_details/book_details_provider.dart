@@ -41,6 +41,17 @@ class BookDetailsNotifier extends Notifier<BookDetailsState> {
   }) async {
     try {
       state = state.copyWith(isSubmitting: true);
+      if (!(await connection.hasConnection)) {
+        if (context.mounted) {
+          snackbar.showCustomSnackbar(
+            context: context,
+            message: LocaleKeys.errorInternet.locale,
+          );
+        }
+        //? internet fail - stop progress.
+        state = state.copyWith(isSubmitting: false);
+        return false;
+      }
       var user = await cache.getUserDb();
       String token = user!.user.token;
       String userId = userIdFromJwt(token);

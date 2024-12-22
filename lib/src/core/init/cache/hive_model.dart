@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:hive/hive.dart';
 import '../../../feature/home/model/catalog/catalog_response_model.dart';
 part 'hive_model.g.dart';
@@ -93,6 +95,8 @@ class ProductModelDb {
   int likesCount;
   @HiveField(9)
   final String url;
+  @HiveField(10)
+  Uint8List image;
 
   ProductModelDb({
     required this.id,
@@ -105,6 +109,7 @@ class ProductModelDb {
     required this.slug,
     required this.likesCount,
     required this.url,
+    required this.image,
   });
 
   factory ProductModelDb.fromModel(ProductModel product) {
@@ -119,6 +124,7 @@ class ProductModelDb {
       slug: product.slug,
       likesCount: product.likesCount,
       url: product.url,
+      image: product.image,
     );
   }
 
@@ -134,6 +140,7 @@ class ProductModelDb {
       slug: slug,
       likesCount: likesCount,
       url: url,
+      image: image,
     );
   }
 }

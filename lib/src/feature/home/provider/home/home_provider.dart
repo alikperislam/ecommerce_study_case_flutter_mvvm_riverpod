@@ -96,7 +96,7 @@ class HomeNotifier extends Notifier<HomeState> {
   Future<bool> _isCategoryDataStale(String createdDate) async {
     final created = DateTime.parse(createdDate);
     final now = DateTime.now();
-    final differenceInDays = now.difference(created).inMinutes; //! .inMinute
+    final differenceInDays = now.difference(created).inDays;
     return differenceInDays > 1;
   }
 
@@ -170,10 +170,14 @@ class HomeNotifier extends Notifier<HomeState> {
             ),
             token: user.user.token,
           );
+          var byteImage = await catalogService.getByteImage(
+            url: coverUrl!.actionProductImage!.url.toString(),
+          );
           //? add product to products list
           products.add(ProductModel.fromJson({
             ...product.toJson(),
-            kUrl: coverUrl!.actionProductImage!.url.toString(),
+            kUrl: coverUrl.actionProductImage!.url.toString(),
+            kImage: byteImage,
           }));
         }
         //? add category to categories list

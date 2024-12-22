@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 class ProductModel {
   final int id;
   final String name;
@@ -9,6 +11,7 @@ class ProductModel {
   final String slug;
   final int likesCount;
   final String url;
+  final Uint8List image;
 
   ProductModel({
     required this.id,
@@ -21,6 +24,7 @@ class ProductModel {
     required this.slug,
     required this.likesCount,
     required this.url,
+    required this.image,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
@@ -35,6 +39,7 @@ class ProductModel {
       slug: json['slug'],
       likesCount: json['likes_aggregate']['aggregate']['count'] ?? 0,
       url: json['url'],
+      image: json['image'],
     );
   }
 }

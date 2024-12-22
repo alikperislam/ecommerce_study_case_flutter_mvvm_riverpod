@@ -384,19 +384,10 @@ class ProductsWidget extends ConsumerWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4.r),
                 ),
-                //Todo: image kontrol edilecek!
-                child: Image.network(
+                child: Image.memory(
+                  width: 80.w,
                   homeState
-                      .categories[categoryIndex].products[productIndex].url,
-                  errorBuilder: (context, error, stackTrace) {
-                    return Container(
-                      width: 80.w,
-                      decoration: BoxDecoration(
-                        color: AppColors.purpleColor,
-                        borderRadius: BorderRadius.circular(4.r),
-                      ),
-                    );
-                  },
+                      .categories[categoryIndex].products[productIndex].image,
                 ),
               ),
               SizedBox(width: 10.w),

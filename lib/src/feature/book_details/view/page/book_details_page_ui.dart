@@ -93,20 +93,10 @@ class ImageCoverWidget extends ConsumerWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4.r),
         ),
-        //Todo: image kontrol edilecek!
-        child: Image.network(
-          fit: BoxFit.fill,
-          homeState.currentProduct!.url,
-          errorBuilder: (context, error, stackTrace) {
-            return Container(
-              height: 225.h,
-              width: 160.w,
-              decoration: BoxDecoration(
-                color: AppColors.purpleColor,
-                borderRadius: BorderRadius.circular(4.r),
-              ),
-            );
-          },
+        child: Image.memory(
+          height: 225.h,
+          width: 160.w,
+          homeState.currentProduct!.image,
         ),
       ),
     );

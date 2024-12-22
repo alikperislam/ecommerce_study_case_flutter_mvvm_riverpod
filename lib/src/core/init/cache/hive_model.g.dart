@@ -175,13 +175,14 @@ class ProductModelDbAdapter extends TypeAdapter<ProductModelDb> {
       slug: fields[7] as String,
       likesCount: fields[8] as int,
       url: fields[9] as String,
+      image: fields[10] as Uint8List,
     );
   }
 
   @override
   void write(BinaryWriter writer, ProductModelDb obj) {
     writer
-      ..writeByte(10)
+      ..writeByte(11)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -201,7 +202,9 @@ class ProductModelDbAdapter extends TypeAdapter<ProductModelDb> {
       ..writeByte(8)
       ..write(obj.likesCount)
       ..writeByte(9)
-      ..write(obj.url);
+      ..write(obj.url)
+      ..writeByte(10)
+      ..write(obj.image);
   }
 
   @override

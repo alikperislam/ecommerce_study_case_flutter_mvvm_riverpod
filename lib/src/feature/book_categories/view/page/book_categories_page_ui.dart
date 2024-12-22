@@ -237,22 +237,10 @@ class ProductWidget extends ConsumerWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4.r),
                 ),
-                //Todo: image kontrol edilecek!
-                child: Image.network(
-                  fit: BoxFit.fill,
+                child: Image.memory(
                   categoriesState.isEmpty
-                      ? homeState.currentCategory!.products[productIndex].url
-                      : categoriesState[productIndex].url,
-                  errorBuilder: (context, error, stackTrace) {
-                    return Container(
-                      height: 210.h,
-                      width: 160.w,
-                      decoration: BoxDecoration(
-                        color: AppColors.purpleColor,
-                        borderRadius: BorderRadius.circular(4.r),
-                      ),
-                    );
-                  },
+                      ? homeState.currentCategory!.products[productIndex].image
+                      : categoriesState[productIndex].image,
                 ),
               ),
               //? name

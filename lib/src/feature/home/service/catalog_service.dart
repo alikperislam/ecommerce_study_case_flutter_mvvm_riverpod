@@ -1,3 +1,4 @@
+import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:ecommerce_case_study/src/core/constants/app_constants.dart';
 import 'package:ecommerce_case_study/src/feature/home/model/categories/categories_response_model.dart';
@@ -72,6 +73,27 @@ class CatalogService implements ICatalogService {
       );
       if (response.statusCode == 200 || response.statusCode == 201) {
         return ImageResponseModel.fromJson(response.data);
+      } else {
+        debugPrint('Error: ${response.statusCode} - ${response.data}');
+        return null;
+      }
+    } catch (e) {
+      debugPrint('Exception: $e');
+      return null;
+    }
+  }
+
+  @override
+  Future<Uint8List?> getByteImage({required String url}) async {
+    try {
+      final response = await dio.get(
+        url,
+        options: Options(
+          responseType: ResponseType.bytes,
+        ),
+      );
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return Uint8List.fromList(response.data);
       } else {
         debugPrint('Error: ${response.statusCode} - ${response.data}');
         return null;
