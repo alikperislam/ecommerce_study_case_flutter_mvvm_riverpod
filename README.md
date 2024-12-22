@@ -32,12 +32,12 @@ Bu projede aşağıdaki Flutter paketleri kullanılmıştır:
 
 ## 📸 Ekran Görüntüleri
 ### iOS Ekran Görüntüleri
-![iOS Ekran Görüntüsü 1](ios_screenshot_1.png)
-![iOS Ekran Görüntüsü 2](ios_screenshot_2.png)
+![iOS Ekran Görüntüsü 1](https://drive.google.com/file/d/1LvYHxtsD8_XppDC1jnFHldl4-G-FwPYG/view?usp=drive_link)
+![iOS Ekran Görüntüsü 2](https://drive.google.com/file/d/1LvYHxtsD8_XppDC1jnFHldl4-G-FwPYG/view?usp=drive_link)
 
 ### Android Ekran Görüntüleri
-![Android Ekran Görüntüsü 1](android_screenshot_1.png)
-![Android Ekran Görüntüsü 2](android_screenshot_2.png)
+![Android Ekran Görüntüsü 1](https://drive.google.com/file/d/1LvYHxtsD8_XppDC1jnFHldl4-G-FwPYG/view?usp=drive_link)
+![Android Ekran Görüntüsü 2](https://drive.google.com/file/d/1LvYHxtsD8_XppDC1jnFHldl4-G-FwPYG/view?usp=drive_link)
 
 ### Ekran Videosu
 ![Uygulama Ekran Videosu](app_video.gif)
