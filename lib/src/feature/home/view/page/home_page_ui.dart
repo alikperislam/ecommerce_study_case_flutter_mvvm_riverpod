@@ -356,7 +356,8 @@ class ProductsWidget extends ConsumerWidget {
         homeNotifier.setCurrentProduct(
           homeState.categories[categoryIndex].products[productIndex],
         );
-        //Todo: go to book details page
+        //? go to book details page
+        context.push(AppRouteNamed.bookDetailsPage.path);
       },
       borderRadius: BorderRadius.circular(4.r),
       child: Ink(

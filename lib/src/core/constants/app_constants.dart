@@ -20,3 +20,5 @@ final kCategoriesUrl =
 final kProductsUrl =
     '${dotenv.env['DOMAIN']}${dotenv.env['PRODUCTS_ENDPOINT']}';
 final kImageUrl = '${dotenv.env['DOMAIN']}${dotenv.env['IMAGE_ENDPOINT']}';
+final kLikeUrl = '${dotenv.env['DOMAIN']}${dotenv.env['LIKE_ENDPOINT']}';
+final kUnlikeUrl = '${dotenv.env['DOMAIN']}${dotenv.env['UNLIKE_ENDPOINT']}';

@@ -6,6 +6,7 @@ import 'package:ecommerce_case_study/src/feature/home/service/i_catalog_service.
 import 'package:ecommerce_case_study/src/feature/register/provider/register/register_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import '../../feature/book_details/provider/book_details/book_details_provider.dart';
 import '../../feature/home/model/catalog/catalog_response_model.dart';
 import '../../feature/login/provider/login/login_provider.dart';
 import '../../feature/login/service/i_login_service.dart';
@@ -54,6 +55,11 @@ final bookCategoriesProvider =
   (ref) => BookCategoriesNotifier(),
 );
 
-
-//Todo: others
-
+//? book details
+final detailsProvider = NotifierProvider<BookDetailsNotifier, BookDetailsState>(
+  () => BookDetailsNotifier(
+    snackbar: GetitLocator.getIt<CustomSnackbar>(),
+    connection: GetitLocator.getIt<InternetConnectionChecker>(),
+    cache: GetitLocator.getIt<CacheOperations>(),
+  ),
+);

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import '../../feature/book_categories/view/page/book_categories_page_ui.dart';
+import '../../feature/book_details/view/page/book_details_page_ui.dart';
 import '../../feature/home/view/page/home_page_ui.dart';
 import '../../feature/login/view/page/login_page_ui.dart';
 import '../../feature/register/view/page/register_page_ui.dart';
@@ -75,6 +76,16 @@ class AppRoutes {
           return buildCustomTransitionPage(
             state: state,
             child: const BookCategoriesPageUi(),
+          );
+        },
+      ),
+      //? book details page
+      GoRoute(
+        path: AppRouteNamed.bookDetailsPage.path,
+        pageBuilder: (context, state) {
+          return buildCustomTransitionPage(
+            state: state,
+            child: const BookDetailsPageUi(),
           );
         },
       ),

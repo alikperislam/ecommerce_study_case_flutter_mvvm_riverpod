@@ -9,6 +9,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../../core/constants/enums.dart';
 import '../../../../core/init/localization/locale_keys.g.dart';
+import '../../../../core/router/app_route_named.dart';
 import '../../../../core/theme/system_theme.dart';
 import '../../../../core/widgets/custom_appbar.dart';
 import '../mixin/book_categories_page_mixin.dart';
@@ -148,7 +149,6 @@ class TextFieldWidget extends ConsumerWidget {
                 size: 20.w,
               ),
               onPressed: () {
-                //Todo: butona basildiginda arama islemini tetikle.
                 debugPrint(textController.text);
               },
             ),
@@ -216,7 +216,8 @@ class ProductWidget extends ConsumerWidget {
               ? homeState.currentCategory!.products[productIndex]
               : categoriesState[productIndex],
         );
-        //Todo: go to home page
+        //? go to book details page
+        context.push(AppRouteNamed.bookDetailsPage.path);
       },
       borderRadius: BorderRadius.circular(4.r),
       child: Ink(
@@ -339,4 +340,3 @@ class ProductWidget extends ConsumerWidget {
     );
   }
 }
-

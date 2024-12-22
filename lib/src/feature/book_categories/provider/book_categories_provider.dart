@@ -5,7 +5,7 @@ class BookCategoriesNotifier extends StateNotifier<List<ProductModel>> {
   List<ProductModel> filteredProducts = [];
   BookCategoriesNotifier() : super([]);
 
-  //? searchfield similary control
+  //? searchfield simillary control
   void searchController(String value, CategoryModel categories) {
     clearSearch();
     for (var product in categories.products) {
