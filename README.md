@@ -31,7 +31,7 @@ Bu projede aşağıdaki Flutter paketleri kullanılmıştır:
 - **jwt_decoder**: JSON Web Token işlemleri
 
 ## 📸 Ekran Görüntüleri
-### iOS Ekran Görüntüleri
+### Android Ekran Görüntüleri
 <div style="display: flex; flex-wrap: wrap;">
     <img src="https://github.com/alikperislam/alikperislam/tree/main/catalog_app_assets/android/1.jpg" alt = "1" style="width: 30%;">
     <img src="https://github.com/alikperislam/alikperislam/tree/main/catalog_app_assets/android/2.jpg" alt = "2" style="width: 30%;">
@@ -43,7 +43,7 @@ Bu projede aşağıdaki Flutter paketleri kullanılmıştır:
     <img src="https://github.com/alikperislam/alikperislam/tree/main/catalog_app_assets/android/8.jpg" alt = "8" style="width: 30%;">
 </div>
 
-### Android Ekran Görüntüleri
+### IOS Ekran Görüntüleri
 <div style="display: flex; flex-wrap: wrap;">
     <img src="https://github.com/alikperislam/alikperislam/tree/main/catalog_app_assets/ios/1.png" alt = "1" style="width: 30%;">
     <img src="https://github.com/alikperislam/alikperislam/tree/main/catalog_app_assets/ios/2.png" alt = "2" style="width: 30%;">
