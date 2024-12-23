@@ -43,6 +43,15 @@ Bu projede aşağıdaki Flutter paketleri kullanılmıştır:
     <img src="https://github.com/alikperislam/alikperislam/tree/main/catalog_app_assets/android/8.jpg" alt = "8" style="width: 30%;">
 </div>
 
+### Android Ekran Görüntüleri
+<div style="display: flex; flex-wrap: wrap;">
+    <img src="https://github.com/alikperislam/alikperislam/tree/main/catalog_app_assets/ios/1.png" alt = "1" style="width: 30%;">
+    <img src="https://github.com/alikperislam/alikperislam/tree/main/catalog_app_assets/ios/2.png" alt = "2" style="width: 30%;">
+    <img src="https://github.com/alikperislam/alikperislam/tree/main/catalog_app_assets/ios/3.png" alt = "3" style="width: 30%;">
+    <img src="https://github.com/alikperislam/alikperislam/tree/main/catalog_app_assets/ios/4.png" alt = "4" style="width: 30%;">
+    <img src="https://github.com/alikperislam/alikperislam/tree/main/catalog_app_assets/ios/5.png" alt = "5" style="width: 30%;">
+    <img src="https://github.com/alikperislam/alikperislam/tree/main/catalog_app_assets/ios/6.png" alt = "6" style="width: 30%;">
+</div>
 
 ## 🛠️ Kurulum
 1. **Depoyu Klonlayın**
