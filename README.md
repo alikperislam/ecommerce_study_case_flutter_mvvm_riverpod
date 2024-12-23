@@ -53,6 +53,9 @@ Bu projede aşağıdaki Flutter paketleri kullanılmıştır:
     <img src="https://github.com/alikperislam/alikperislam/tree/main/catalog_app_assets/ios/6.png" alt = "6" style="width: 30%;">
 </div>
 
+## 📽️ Video
+Uygulamayı nasıl kullanacağınızı görmek için [bu videoyu](https://github.com/alikperislam/alikperislam/tree/main/catalog_app_assets/app/mp4) izleyin.
+
 ## 📂 APK Dosyası
 Uygulamayı test etmek için APK dosyasını indirip cihazınıza yükleyebilirsiniz:
 [Download APK](https://github.com/alikperislam/alikperislam/blob/main/catalog_app_assets/app-release.apk)
