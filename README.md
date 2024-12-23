@@ -33,24 +33,24 @@ Bu projede aşağıdaki Flutter paketleri kullanılmıştır:
 ## 📸 Ekran Görüntüleri
 ### Android Ekran Görüntüleri
 <div style="display: flex; flex-wrap: wrap;">
-    <img src="https://github.com/alikperislam/alikperislam/tree/main/catalog_app_assets/android/1.jpg" alt = "1" style="width: 30%;">
-    <img src="https://github.com/alikperislam/alikperislam/tree/main/catalog_app_assets/android/2.jpg" alt = "2" style="width: 30%;">
-    <img src="https://github.com/alikperislam/alikperislam/tree/main/catalog_app_assets/android/3.jpg" alt = "3" style="width: 30%;">
-    <img src="https://github.com/alikperislam/alikperislam/tree/main/catalog_app_assets/android/4.jpg" alt = "4" style="width: 30%;">
-    <img src="https://github.com/alikperislam/alikperislam/tree/main/catalog_app_assets/android/5.jpg" alt = "5" style="width: 30%;">
-    <img src="https://github.com/alikperislam/alikperislam/tree/main/catalog_app_assets/android/6.jpg" alt = "6" style="width: 30%;">
-    <img src="https://github.com/alikperislam/alikperislam/tree/main/catalog_app_assets/android/7.jpg" alt = "7" style="width: 30%;">
-    <img src="https://github.com/alikperislam/alikperislam/tree/main/catalog_app_assets/android/8.jpg" alt = "8" style="width: 30%;">
+    <img src="https://raw.githubusercontent.com/alikperislam/alikperislam/main/catalog_app_assets/android/1.jpg" alt="1" style="width: 30%;">
+    <img src="https://raw.githubusercontent.com/alikperislam/alikperislam/main/catalog_app_assets/android/2.jpg" alt="2" style="width: 30%;">
+    <img src="https://raw.githubusercontent.com/alikperislam/alikperislam/main/catalog_app_assets/android/3.jpg" alt="3" style="width: 30%;">
+    <img src="https://raw.githubusercontent.com/alikperislam/alikperislam/main/catalog_app_assets/android/4.jpg" alt="4" style="width: 30%;">
+    <img src="https://raw.githubusercontent.com/alikperislam/alikperislam/main/catalog_app_assets/android/5.jpg" alt="5" style="width: 30%;">
+    <img src="https://raw.githubusercontent.com/alikperislam/alikperislam/main/catalog_app_assets/android/6.jpg" alt="6" style="width: 30%;">
+    <img src="https://raw.githubusercontent.com/alikperislam/alikperislam/main/catalog_app_assets/android/7.jpg" alt="7" style="width: 30%;">
+    <img src="https://raw.githubusercontent.com/alikperislam/alikperislam/main/catalog_app_assets/android/8.jpg" alt="8" style="width: 30%;">
 </div>
 
 ### IOS Ekran Görüntüleri
 <div style="display: flex; flex-wrap: wrap;">
-    <img src="https://github.com/alikperislam/alikperislam/tree/main/catalog_app_assets/ios/1.png" alt = "1" style="width: 30%;">
-    <img src="https://github.com/alikperislam/alikperislam/tree/main/catalog_app_assets/ios/2.png" alt = "2" style="width: 30%;">
-    <img src="https://github.com/alikperislam/alikperislam/tree/main/catalog_app_assets/ios/3.png" alt = "3" style="width: 30%;">
-    <img src="https://github.com/alikperislam/alikperislam/tree/main/catalog_app_assets/ios/4.png" alt = "4" style="width: 30%;">
-    <img src="https://github.com/alikperislam/alikperislam/tree/main/catalog_app_assets/ios/5.png" alt = "5" style="width: 30%;">
-    <img src="https://github.com/alikperislam/alikperislam/tree/main/catalog_app_assets/ios/6.png" alt = "6" style="width: 30%;">
+    <img src="https://raw.githubusercontent.com/alikperislam/alikperislam/main/catalog_app_assets/ios/1.png" alt="1" style="width: 30%;">
+    <img src="https://raw.githubusercontent.com/alikperislam/alikperislam/main/catalog_app_assets/ios/2.png" alt="2" style="width: 30%;">
+    <img src="https://raw.githubusercontent.com/alikperislam/alikperislam/main/catalog_app_assets/ios/3.png" alt="3" style="width: 30%;">
+    <img src="https://raw.githubusercontent.com/alikperislam/alikperislam/main/catalog_app_assets/ios/4.png" alt="4" style="width: 30%;">
+    <img src="https://raw.githubusercontent.com/alikperislam/alikperislam/main/catalog_app_assets/ios/5.png" alt="5" style="width: 30%;">
+    <img src="https://raw.githubusercontent.com/alikperislam/alikperislam/main/catalog_app_assets/ios/6.png" alt="6" style="width: 30%;">
 </div>
 
 
