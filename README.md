@@ -30,6 +30,19 @@ Bu projede aşağıdaki Flutter paketleri kullanılmıştır:
 - **internet_connection_checker**: Bağlantı kontrolü
 - **jwt_decoder**: JSON Web Token işlemleri
 
+## 📸 Ekran Görüntüleri
+### iOS Ekran Görüntüleri
+<div style="display: flex; flex-wrap: wrap;">
+    <img src="https://github.com/alikperislam/alikperislam/tree/main/catalog_app_assets/android/1.jpg" alt = "1" style="width: 30%;">
+    <img src="https://github.com/alikperislam/alikperislam/tree/main/catalog_app_assets/android/2.jpg" alt = "2" style="width: 30%;">
+    <img src="https://github.com/alikperislam/alikperislam/tree/main/catalog_app_assets/android/3.jpg" alt = "3" style="width: 30%;">
+    <img src="https://github.com/alikperislam/alikperislam/tree/main/catalog_app_assets/android/4.jpg" alt = "4" style="width: 30%;">
+    <img src="https://github.com/alikperislam/alikperislam/tree/main/catalog_app_assets/android/5.jpg" alt = "5" style="width: 30%;">
+    <img src="https://github.com/alikperislam/alikperislam/tree/main/catalog_app_assets/android/6.jpg" alt = "6" style="width: 30%;">
+    <img src="https://github.com/alikperislam/alikperislam/tree/main/catalog_app_assets/android/7.jpg" alt = "7" style="width: 30%;">
+    <img src="https://github.com/alikperislam/alikperislam/tree/main/catalog_app_assets/android/8.jpg" alt = "8" style="width: 30%;">
+</div>
+
 
 ## 🛠️ Kurulum
 1. **Depoyu Klonlayın**
